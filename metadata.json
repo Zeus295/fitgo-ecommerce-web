@@ -1,0 +1,8 @@
+{
+  "name": "Remix FITGO - Gym Supplements Storefront",
+  "description": "Premium gym supplements e-commerce storefront with verified authenticity, batch transparency, goal-based stacks, and instant checkout.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

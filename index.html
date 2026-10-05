@@ -1,0 +1,3542 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FITGO - Gym Supplements Storefront</title>
+  <meta name="description" content="Premium gym supplements e-commerce storefront with verified authenticity, batch transparency, goal-based stacks, and instant checkout." />
+  <meta property="og:title" content="FITGO - Gym Supplements Storefront" />
+  <meta property="og:description" content="Premium gym supplements e-commerce storefront with verified authenticity, batch transparency, goal-based stacks, and instant checkout." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  
+  <!-- Google Fonts: Anton, Barlow Condensed, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;0,800;1,700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0B0C0F;
+      --surface: #14161A;
+      --surface-2: #1C1F25;
+      --text: #F4F5F7;
+      --muted: #9AA1AE;
+      --accent: #FF4D1A;
+      --accent-glow: rgba(255, 77, 26, 0.25);
+      --accent-2: #FFB020;
+      --success: #22C55E;
+      --line: rgba(255, 255, 255, 0.08);
+      --font-display: 'Barlow Condensed', 'Anton', sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --container-max: 1280px;
+      --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="light"] {
+      --bg: #F7F8FA;
+      --surface: #FFFFFF;
+      --surface-2: #EFF1F5;
+      --text: #11141A;
+      --muted: #616875;
+      --line: rgba(0, 0, 0, 0.09);
+      --accent-glow: rgba(255, 77, 26, 0.15);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      color-scheme: dark;
+    }
+
+    [data-theme="light"] html {
+      color-scheme: light;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      position: relative;
+    }
+
+    /* Ambient noise & grid backdrops */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, var(--line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, .font-display {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      line-height: 0.95;
+      font-weight: 800;
+    }
+
+    .tabular-nums {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--container-max);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: clamp(1rem, 4vw, 2.5rem);
+      padding-right: clamp(1rem, 4vw, 2.5rem);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #FFFFFF;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      background: #E03E0F;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 26px rgba(255, 77, 26, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--surface-2);
+      color: var(--text);
+      border-color: var(--line);
+    }
+    .btn-secondary:hover {
+      background: var(--surface);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .btn-sm {
+      padding: 0.4rem 0.9rem;
+      font-size: 0.95rem;
+      border-radius: 6px;
+    }
+
+    /* Announcement Bar */
+    .announcement-bar {
+      background: #000000;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 0.45rem 0;
+      position: relative;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      z-index: 50;
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 24s linear infinite;
+      gap: 3rem;
+    }
+    .marquee-track:hover {
+      animation-play-state: paused;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .announcement-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .announcement-item span.highlight {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* Sticky Glass Header */
+    header.site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(11, 12, 15, 0.82);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+      transition: var(--transition);
+    }
+    [data-theme="light"] header.site-header {
+      background: rgba(255, 255, 255, 0.88);
+    }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+      color: var(--text);
+      font-family: 'Anton', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 0.05em;
+    }
+    .brand-logo .dot {
+      color: var(--accent);
+    }
+    .brand-tag {
+      font-family: var(--font-body);
+      font-size: 0.65rem;
+      font-weight: 800;
+      color: var(--accent);
+      background: rgba(255, 77, 26, 0.12);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      margin-left: 0.4rem;
+      letter-spacing: 0.08em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text);
+      opacity: 0.85;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      transition: var(--transition);
+      position: relative;
+    }
+    .nav-links a:hover {
+      opacity: 1;
+      color: var(--accent);
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+    }
+    .icon-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+    .badge-count {
+      position: absolute;
+      top: -4px;
+      right: -4px;
+      background: var(--accent);
+      color: #FFFFFF;
+      font-size: 0.7rem;
+      font-weight: 700;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+
+    /* Hero Section */
+    .hero-section {
+      position: relative;
+      padding: clamp(3rem, 7vw, 6rem) 0 clamp(2.5rem, 6vw, 4.5rem);
+      overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute;
+      top: 20%;
+      right: 10%;
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(255, 77, 26, 0.22) 0%, rgba(255, 176, 32, 0.08) 45%, transparent 70%);
+      filter: blur(60px);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-headline {
+      font-size: clamp(3.2rem, 8vw, 6.2rem);
+      line-height: 0.92;
+      margin-bottom: 1.25rem;
+      color: var(--text);
+    }
+    .hero-headline span.highlight {
+      color: var(--accent);
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 1.3vw, 1.25rem);
+      color: var(--muted);
+      max-width: 540px;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .trust-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      border-top: 1px solid var(--line);
+      padding-top: 1.5rem;
+    }
+    .trust-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .trust-chip svg {
+      color: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* CSS/SVG Product Canisters */
+    .hero-canisters {
+      position: relative;
+      width: 100%;
+      height: 480px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .floating-canister {
+      position: absolute;
+      transition: transform 0.3s ease;
+      filter: drop-shadow(0 20px 30px rgba(0,0,0,0.6));
+    }
+    .canister-main {
+      z-index: 3;
+      transform: scale(1.08) translateY(0);
+      animation: floatMain 6s ease-in-out infinite;
+    }
+    .canister-left {
+      left: 8%;
+      bottom: 12%;
+      z-index: 2;
+      transform: scale(0.85) rotate(-8deg);
+      animation: floatLeft 7s ease-in-out infinite 0.5s;
+    }
+    .canister-right {
+      right: 8%;
+      top: 10%;
+      z-index: 2;
+      transform: scale(0.9) rotate(8deg);
+      animation: floatRight 8s ease-in-out infinite 1s;
+    }
+    @keyframes floatMain {
+      0%, 100% { transform: scale(1.08) translateY(0); }
+      50% { transform: scale(1.08) translateY(-14px); }
+    }
+    @keyframes floatLeft {
+      0%, 100% { transform: scale(0.85) rotate(-8deg) translateY(0); }
+      50% { transform: scale(0.85) rotate(-8deg) translateY(12px); }
+    }
+    @keyframes floatRight {
+      0%, 100% { transform: scale(0.9) rotate(8deg) translateY(0); }
+      50% { transform: scale(0.9) rotate(8deg) translateY(-10px); }
+    }
+
+    /* Trust Strip */
+    .trust-strip {
+      background: var(--surface);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 2.25rem 0;
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .trust-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem;
+    }
+    .trust-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: rgba(255, 77, 26, 0.1);
+      border: 1px solid rgba(255, 77, 26, 0.2);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .trust-content .trust-stat {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text);
+      line-height: 1;
+    }
+    .trust-content .trust-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-top: 0.25rem;
+    }
+
+    /* Section Layouts */
+    .section-wrap {
+      padding: clamp(3.5rem, 6vw, 5.5rem) 0;
+      position: relative;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .section-kicker {
+      color: var(--accent);
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--text);
+    }
+    .section-desc {
+      color: var(--muted);
+      font-size: 0.95rem;
+      max-width: 520px;
+      margin-top: 0.5rem;
+    }
+
+    /* Shop by Goal Cards */
+    .goals-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .goal-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 2rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 280px;
+    }
+    .goal-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 77, 26, 0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: var(--transition);
+    }
+    .goal-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--accent);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px var(--accent-glow);
+    }
+    .goal-card:hover::before {
+      opacity: 1;
+    }
+    .goal-card-top {
+      position: relative;
+      z-index: 2;
+    }
+    .goal-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      transition: var(--transition);
+    }
+    .goal-card:hover .goal-icon {
+      background: var(--accent);
+      color: #FFFFFF;
+      transform: scale(1.08);
+    }
+    .goal-title {
+      font-size: 1.7rem;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
+    .goal-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+    .goal-action {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--text);
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      padding-top: 1rem;
+    }
+    .goal-action svg {
+      transition: transform 0.2s ease;
+      color: var(--accent);
+    }
+    .goal-card:hover .goal-action svg {
+      transform: translateX(4px);
+    }
+
+    /* Categories Grid */
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 1rem;
+    }
+    .cat-tile {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 0.75rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .cat-tile:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      background: var(--surface-2);
+    }
+    .cat-icon-wrap {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      transition: var(--transition);
+    }
+    .cat-tile:hover .cat-icon-wrap {
+      background: var(--accent);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+    .cat-name {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+    }
+
+    /* Product Cards & Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+    .product-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+      position: relative;
+    }
+    .product-card:hover {
+      border-color: rgba(255, 77, 26, 0.4);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+    }
+    .product-thumb {
+      height: 220px;
+      background: linear-gradient(180deg, var(--surface-2) 0%, var(--surface) 100%);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      overflow: hidden;
+    }
+    .badge-ribbon {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      z-index: 5;
+    }
+    .badge-bestseller {
+      background: var(--accent);
+      color: #FFFFFF;
+    }
+    .badge-verified {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: var(--success);
+    }
+    .wishlist-btn {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--line);
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+      transition: var(--transition);
+    }
+    .wishlist-btn:hover, .wishlist-btn.active {
+      color: #FF3B30;
+      border-color: #FF3B30;
+      transform: scale(1.1);
+    }
+    .product-card:hover .product-mockup {
+      transform: scale(1.08) translateY(-4px);
+    }
+    .product-mockup {
+      transition: transform 0.3s ease;
+    }
+    .quick-view-overlay-btn {
+      position: absolute;
+      bottom: 10px;
+      background: rgba(20, 22, 26, 0.85);
+      backdrop-filter: blur(8px);
+      color: var(--text);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+      opacity: 0;
+      transform: translateY(10px);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+    .product-thumb:hover .quick-view-overlay-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .product-body {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .product-meta-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.35rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .product-brand {
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+    }
+    .rating-row {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: var(--accent-2);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .product-name {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+      line-height: 1.1;
+    }
+    .serving-meta {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 0.75rem;
+    }
+    .serving-meta strong {
+      color: var(--text);
+    }
+    /* Variant selectors in card */
+    .variant-pickers {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .variant-select {
+      flex: 1;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 0.35rem 0.5rem;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-family: var(--font-body);
+      outline: none;
+      cursor: pointer;
+    }
+    .variant-select:focus {
+      border-color: var(--accent);
+    }
+    .price-row {
+      margin-top: auto;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 0.85rem;
+    }
+    .main-price {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+    .compare-price {
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: line-through;
+      margin-left: 0.35rem;
+    }
+    .pps-badge {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .add-to-cart-btn {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      color: var(--text);
+      padding: 0.65rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+    .add-to-cart-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #FFFFFF;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+    .add-to-cart-btn.added {
+      background: var(--success);
+      border-color: var(--success);
+      color: #FFFFFF;
+    }
+
+    /* Bundles / Stacks */
+    .bundles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .bundle-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+    .bundle-card.featured-bundle {
+      border-color: var(--accent);
+      box-shadow: 0 0 30px rgba(255, 77, 26, 0.18);
+    }
+    .bundle-badge {
+      display: inline-block;
+      background: var(--accent);
+      color: #FFFFFF;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+      align-self: flex-start;
+    }
+    .bundle-title {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--text);
+    }
+    .bundle-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+    .bundle-items-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 1rem 0;
+    }
+    .bundle-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .bundle-item svg {
+      color: var(--success);
+      flex-shrink: 0;
+    }
+    .bundle-pricing {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .bundle-save-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--success);
+      background: rgba(34, 197, 94, 0.1);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+
+    /* Authenticity / Timeline Section */
+    .timeline-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      position: relative;
+      margin-top: 2rem;
+    }
+    .timeline-steps::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 15%;
+      right: 15%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 50%, var(--success) 100%);
+      z-index: 1;
+      opacity: 0.4;
+    }
+    .timeline-step {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 2rem 1.5rem;
+      position: relative;
+      z-index: 2;
+      transition: var(--transition);
+      text-align: center;
+    }
+    .timeline-step:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+    .step-number {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      border: 2px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: -3.5rem auto 1.25rem auto;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+    .step-title {
+      font-size: 1.35rem;
+      margin-bottom: 0.5rem;
+    }
+    .step-desc {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Reviews Carousel */
+    .reviews-carousel-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+    .reviews-track {
+      display: flex;
+      gap: 1.5rem;
+      transition: transform 0.4s ease-in-out;
+    }
+    .review-card {
+      min-width: calc(33.333% - 1rem);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      padding: 1.75rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+    }
+    .reviewer-info .reviewer-name {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .verified-buyer-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.7rem;
+      color: var(--success);
+      font-weight: 600;
+      margin-top: 0.15rem;
+    }
+    .review-quote {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+      font-style: italic;
+    }
+    .review-product-tag {
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-top: 1px solid var(--line);
+      padding-top: 0.75rem;
+    }
+
+    /* FAQ Accordion */
+    .faq-container {
+      max-width: 840px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    .faq-question {
+      padding: 1.25rem 1.5rem;
+      width: 100%;
+      text-align: left;
+      background: none;
+      border: none;
+      color: var(--text);
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+    .faq-icon {
+      color: var(--accent);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+    .faq-item.active .faq-icon {
+      transform: rotate(45deg);
+    }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 1.5rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 240px;
+      padding-bottom: 1.25rem;
+    }
+
+    /* Newsletter */
+    .newsletter-card {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: clamp(2rem, 5vw, 4rem);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .newsletter-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 400px;
+      height: 250px;
+      background: radial-gradient(ellipse, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .newsletter-form {
+      max-width: 520px;
+      margin: 1.5rem auto 0 auto;
+      display: flex;
+      gap: 0.5rem;
+      position: relative;
+      z-index: 2;
+    }
+    .newsletter-input {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      color: var(--text);
+      padding: 0.85rem 1.25rem;
+      font-size: 0.95rem;
+      font-family: var(--font-body);
+      outline: none;
+    }
+    .newsletter-input:focus {
+      border-color: var(--accent);
+    }
+
+    /* Footer */
+    footer.site-footer {
+      background: #050608;
+      border-top: 1px solid var(--line);
+      padding: 4rem 0 2rem 0;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr repeat(3, 1fr);
+      gap: 3rem;
+      margin-bottom: 3rem;
+    }
+    .footer-col h4 {
+      color: var(--text);
+      font-size: 1.15rem;
+      margin-bottom: 1rem;
+    }
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .footer-links a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    .footer-links a:hover {
+      color: var(--accent);
+    }
+    .supplement-disclaimer {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 1.25rem 0;
+      margin-bottom: 2rem;
+      font-size: 0.75rem;
+      line-height: 1.6;
+      color: #616875;
+      text-align: center;
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    /* Cart Drawer */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+    .drawer-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: 440px;
+      background: var(--surface);
+      border-left: 1px solid var(--line);
+      z-index: 101;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .drawer-overlay.active .cart-drawer {
+      transform: translateX(0);
+    }
+    .drawer-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .drawer-title {
+      font-size: 1.4rem;
+    }
+    .drawer-close {
+      background: none;
+      border: none;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .drawer-close:hover {
+      color: var(--accent);
+    }
+    .shipping-progress {
+      padding: 1rem 1.5rem;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--line);
+    }
+    .shipping-msg {
+      font-size: 0.8rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .progress-bar-bg {
+      height: 6px;
+      background: var(--line);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent) 0%, var(--success) 100%);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    .cart-items-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .cart-item {
+      display: flex;
+      gap: 1rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .cart-item-thumb {
+      width: 64px;
+      height: 64px;
+      background: var(--surface-2);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .cart-item-info {
+      flex: 1;
+    }
+    .cart-item-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+      margin-bottom: 0.25rem;
+    }
+    .cart-item-variant {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .cart-item-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .qty-stepper {
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface-2);
+    }
+    .qty-btn {
+      width: 26px;
+      height: 26px;
+      background: none;
+      border: none;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+    .qty-val {
+      font-size: 0.85rem;
+      padding: 0 0.5rem;
+      font-weight: 600;
+    }
+    .cart-item-price {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    .cart-drawer-footer {
+      padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--line);
+      background: var(--surface);
+    }
+    .cart-subtotal-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.5rem;
+    }
+    .subtotal-label {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .subtotal-amount {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    /* Modal dialogs */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      z-index: 110;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2rem;
+      position: relative;
+      transform: scale(0.95);
+      transition: transform 0.25s ease;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+    }
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+    .modal-close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      width: 34px;
+      height: 34px;
+      color: var(--muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    .modal-close-btn:hover {
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-canisters { height: 360px; }
+      .goals-grid { grid-template-columns: repeat(2, 1fr); }
+      .categories-grid { grid-template-columns: repeat(4, 1fr); }
+      .products-grid { grid-template-columns: repeat(2, 1fr); }
+      .bundles-grid { grid-template-columns: 1fr; }
+      .trust-grid { grid-template-columns: repeat(2, 1fr); }
+      .timeline-steps { grid-template-columns: 1fr; }
+      .timeline-steps::before { display: none; }
+      .review-card { min-width: calc(50% - 0.75rem); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .categories-grid { grid-template-columns: repeat(2, 1fr); }
+      .products-grid { grid-template-columns: 1fr; }
+      .goals-grid { grid-template-columns: 1fr; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .review-card { min-width: 100%; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .newsletter-form { flex-direction: column; }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- 1. Announcement Bar -->
+  <div class="announcement-bar">
+    <div class="marquee-track">
+      <div class="announcement-item">
+        <span>⚡ FREE EXPRESS DELIVERY ON ORDERS OVER <span class="highlight">$75</span></span>
+        <span>•</span>
+        <span>🛡️ 100% AUTHENTIC GUARANTEE — DIRECT IMPORTER SOURCING</span>
+        <span>•</span>
+        <span>📦 DISPATCHED WITHIN 24 HOURS WITH REAL-TIME TRACKING</span>
+        <span>•</span>
+        <span>💵 CASH ON DELIVERY AVAILABLE NATIONWIDE</span>
+        <span>•</span>
+        <span>🧪 LAB TESTED BATCH CERTIFICATES ON EVERY CANISTER</span>
+      </div>
+      <div class="announcement-item" aria-hidden="true">
+        <span>⚡ FREE EXPRESS DELIVERY ON ORDERS OVER <span class="highlight">$75</span></span>
+        <span>•</span>
+        <span>🛡️ 100% AUTHENTIC GUARANTEE — DIRECT IMPORTER SOURCING</span>
+        <span>•</span>
+        <span>📦 DISPATCHED WITHIN 24 HOURS WITH REAL-TIME TRACKING</span>
+        <span>•</span>
+        <span>💵 CASH ON DELIVERY AVAILABLE NATIONWIDE</span>
+        <span>•</span>
+        <span>🧪 LAB TESTED BATCH CERTIFICATES ON EVERY CANISTER</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Sticky Glass Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <div style="display: flex; align-items: center;">
+        <a href="#" class="brand-logo">
+          FITGO<span class="dot">.</span>
+        </a>
+        <span class="brand-tag">PERFORMANCE</span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#shop">Shop All</a>
+        <a href="#goals">Goals</a>
+        <a href="#categories">Categories</a>
+        <a href="#bundles">Bundles</a>
+        <a href="#authenticity">Authenticity</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="header-actions">
+        <!-- Theme Toggle -->
+        <button class="icon-btn" id="themeToggleBtn" title="Toggle Theme" aria-label="Toggle Theme">
+          <svg id="themeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+        </button>
+
+        <!-- Search button -->
+        <button class="icon-btn" id="searchOpenBtn" title="Search Products" aria-label="Search Products">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+
+        <!-- Wishlist button -->
+        <button class="icon-btn" id="wishlistHeaderBtn" title="View Wishlist" aria-label="View Wishlist">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+          </svg>
+          <span class="badge-count" id="wishlistCountBadge" style="display: none;">0</span>
+        </button>
+
+        <!-- Cart button -->
+        <button class="icon-btn" id="cartOpenBtn" title="Shopping Cart" aria-label="Shopping Cart">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 0 1-8 0"></path>
+          </svg>
+          <span class="badge-count" id="cartCountBadge">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- 3. Hero Section -->
+    <section class="hero-section bg-grid">
+      <div class="hero-glow"></div>
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <span class="section-kicker">100% Verified Pure Nutrition</span>
+          <h1 class="hero-headline">
+            FUEL YOUR <span class="highlight">GOAL.</span>
+          </h1>
+          <p class="hero-sub">
+            The elite destination for verified authentic bodybuilding and fitness supplements. Batch-tested, clear ingredients, transparent price-per-serving, and guaranteed 24-hour dispatch.
+          </p>
+          <div class="hero-ctas">
+            <a href="#shop" class="btn btn-primary">
+              Shop Now
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+            <button id="findStackHeroBtn" class="btn btn-secondary">
+              ⚡ Find My Stack
+            </button>
+          </div>
+          <div class="trust-chips">
+            <div class="trust-chip">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <span>100% Authorized Sourcing</span>
+            </div>
+            <div class="trust-chip">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+              <span>24-Hour Dispatch</span>
+            </div>
+            <div class="trust-chip">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <span>Secure Checkout & COD</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floating CSS/SVG Canisters -->
+        <div class="hero-canisters">
+          <!-- Left Canister: Pre-Workout -->
+          <div class="floating-canister canister-left">
+            <svg width="140" height="200" viewBox="0 0 140 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="25" y="12" width="90" height="24" rx="4" fill="#1C1F25" stroke="#FF4D1A" stroke-width="2"/>
+              <path d="M20 36H120V176C120 186 112 194 102 194H38C28 194 20 186 20 176V36Z" fill="#14161A" stroke="#2B2F38" stroke-width="2"/>
+              <rect x="20" y="60" width="100" height="85" fill="#1F232B"/>
+              <path d="M20 60H120" stroke="#FF4D1A" stroke-width="3"/>
+              <text x="70" y="82" fill="#FF4D1A" font-family="'Anton', sans-serif" font-size="12" text-anchor="middle" font-weight="900" letter-spacing="1">IGNITE</text>
+              <text x="70" y="102" fill="#F4F5F7" font-family="'Anton', sans-serif" font-size="16" text-anchor="middle" font-weight="900">PRE-WORKOUT</text>
+              <text x="70" y="120" fill="#9AA1AE" font-family="'Inter', sans-serif" font-size="8" text-anchor="middle" font-weight="600">350MG CAFFEINE • 6G CITRULLINE</text>
+              <rect x="42" y="132" width="56" height="5" rx="2.5" fill="#FF4D1A"/>
+            </svg>
+          </div>
+
+          <!-- Main Center Canister: ISO Whey 100% -->
+          <div class="floating-canister canister-main">
+            <svg width="220" height="310" viewBox="0 0 220 310" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Cap -->
+              <rect x="48" y="15" width="124" height="36" rx="6" fill="#1A1D24" stroke="#FF4D1A" stroke-width="2.5"/>
+              <line x1="58" y1="24" x2="162" y2="24" stroke="#333742" stroke-width="2"/>
+              <line x1="58" y1="32" x2="162" y2="32" stroke="#333742" stroke-width="2"/>
+              <!-- Canister Body -->
+              <path d="M30 51H190V270C190 286 176 298 160 298H60C44 298 30 286 30 270V51Z" fill="#121419" stroke="#2E333E" stroke-width="2.5"/>
+              <!-- Reflective Sheen -->
+              <path d="M42 55L36 280" stroke="rgba(255,255,255,0.06)" stroke-width="8" stroke-linecap="round"/>
+              <!-- Label -->
+              <rect x="30" y="90" width="160" height="135" fill="#181B22"/>
+              <rect x="30" y="90" width="160" height="4" fill="#FF4D1A"/>
+              <text x="110" y="120" fill="#FF4D1A" font-family="'Anton', sans-serif" font-size="14" text-anchor="middle" font-weight="900" letter-spacing="2">FITGO ELITE</text>
+              <text x="110" y="150" fill="#FFFFFF" font-family="'Anton', sans-serif" font-size="26" text-anchor="middle" font-weight="900">100% WHEY ISOLATE</text>
+              <text x="110" y="172" fill="#9AA1AE" font-family="'Inter', sans-serif" font-size="10" text-anchor="middle" font-weight="600">27G PROTEIN • 0G SUGAR • 6.2G BCAA</text>
+              <!-- Verification Seal Badge -->
+              <rect x="52" y="186" width="116" height="24" rx="4" fill="rgba(34,197,94,0.12)" stroke="rgba(34,197,94,0.4)" stroke-width="1"/>
+              <text x="110" y="202" fill="#22C55E" font-family="'Inter', sans-serif" font-size="9" text-anchor="middle" font-weight="700">✓ 100% VERIFIED AUTHENTIC</text>
+            </svg>
+          </div>
+
+          <!-- Right Canister: Creapure Creatine -->
+          <div class="floating-canister canister-right">
+            <svg width="150" height="190" viewBox="0 0 150 190" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="30" y="14" width="90" height="22" rx="4" fill="#1C1F25" stroke="#FFB020" stroke-width="2"/>
+              <path d="M24 36H126V166C126 176 118 184 108 184H42C32 184 24 176 24 166V36Z" fill="#14161A" stroke="#2B2F38" stroke-width="2"/>
+              <rect x="24" y="60" width="102" height="78" fill="#1A1E26"/>
+              <path d="M24 60H126" stroke="#FFB020" stroke-width="3"/>
+              <text x="75" y="84" fill="#FFB020" font-family="'Anton', sans-serif" font-size="12" text-anchor="middle" font-weight="900">CREAPURE®</text>
+              <text x="75" y="104" fill="#FFFFFF" font-family="'Anton', sans-serif" font-size="15" text-anchor="middle" font-weight="900">CREATINE MONO</text>
+              <text x="75" y="120" fill="#9AA1AE" font-family="'Inter', sans-serif" font-size="8" text-anchor="middle">100 SERVINGS • UNFLAVORED</text>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Trust Strip with Live Count-Up Stats -->
+    <section class="trust-strip">
+      <div class="container">
+        <div class="trust-grid">
+          <div class="trust-card">
+            <div class="trust-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <div class="trust-content">
+              <div class="trust-stat tabular-nums" data-target="100">100%</div>
+              <div class="trust-label">Authorized Source Guarantee</div>
+            </div>
+          </div>
+
+          <div class="trust-card">
+            <div class="trust-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"></path><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+            </div>
+            <div class="trust-content">
+              <div class="trust-stat tabular-nums" data-target="15000">15,000+</div>
+              <div class="trust-label">Verified Batches Tested</div>
+            </div>
+          </div>
+
+          <div class="trust-card">
+            <div class="trust-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            </div>
+            <div class="trust-content">
+              <div class="trust-stat tabular-nums" data-target="24">24 Hours</div>
+              <div class="trust-label">Fast Tracked Dispatch</div>
+            </div>
+          </div>
+
+          <div class="trust-card">
+            <div class="trust-icon-box">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <div class="trust-content">
+              <div class="trust-stat tabular-nums">4.9 / 5.0</div>
+              <div class="trust-label">Rated By 12k+ Real Athletes</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Shop by Goal -->
+    <section class="section-wrap" id="goals">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Targeted Performance</span>
+            <h2 class="section-title">SHOP BY GOAL</h2>
+            <p class="section-desc">Don't guess what your body needs. Choose your primary fitness ambition and discover scientifically validated stacks.</p>
+          </div>
+        </div>
+
+        <div class="goals-grid">
+          <!-- Muscle Gain -->
+          <div class="goal-card" onclick="filterByGoal('muscle-gain')">
+            <div class="goal-card-top">
+              <div class="goal-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 18h12"></path><path d="M6 6h12"></path><rect x="2" y="10" width="20" height="4" rx="2"></rect></svg>
+              </div>
+              <h3 class="goal-title">MUSCLE GAIN</h3>
+              <p class="goal-desc">High-BV Whey Isolates, ultra-micronized Creatine, and mass formulas to maximize hypertrophy and lean mass accretion.</p>
+            </div>
+            <div class="goal-action">
+              <span>EXPLORE MUSCLE STACK</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </div>
+
+          <!-- Fat Loss -->
+          <div class="goal-card" onclick="filterByGoal('fat-loss')">
+            <div class="goal-card-top">
+              <div class="goal-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+              </div>
+              <h3 class="goal-title">FAT LOSS & SHRED</h3>
+              <p class="goal-desc">Thermogenics, L-Carnitine L-Tartrate, calorie-efficient protein, and appetite moderators to preserve muscle while stripping fat.</p>
+            </div>
+            <div class="goal-action">
+              <span>EXPLORE CUTTING STACK</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </div>
+
+          <!-- Energy & Focus -->
+          <div class="goal-card" onclick="filterByGoal('energy')">
+            <div class="goal-card-top">
+              <div class="goal-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+              </div>
+              <h3 class="goal-title">ENERGY & FOCUS</h3>
+              <p class="goal-desc">Explosive pre-workouts, nootropic drive catalysts, electrolytes, and nitric oxide pump boosters for peak training output.</p>
+            </div>
+            <div class="goal-action">
+              <span>EXPLORE ENERGY STACK</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </div>
+
+          <!-- Recovery -->
+          <div class="goal-card" onclick="filterByGoal('recovery')">
+            <div class="goal-card-top">
+              <div class="goal-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+              </div>
+              <h3 class="goal-title">RECOVERY & REPAIR</h3>
+              <p class="goal-desc">Fermented EAAs, micronized L-Glutamine, sleep and hormone optimizers to halt DOMS and accelerate repair between grueling sessions.</p>
+            </div>
+            <div class="goal-action">
+              <span>EXPLORE RECOVERY STACK</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Shop by Category (8 Icon Tiles) -->
+    <section class="section-wrap" id="categories" style="background: var(--surface);">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Catalog Taxonomy</span>
+            <h2 class="section-title">SHOP BY CATEGORY</h2>
+            <p class="section-desc">Browse our complete spectrum of verified pharmaceutical and sports nutrition formulas.</p>
+          </div>
+        </div>
+
+        <div class="categories-grid">
+          <!-- 1. Protein -->
+          <div class="cat-tile" onclick="filterByCategory('protein')">
+            <div class="cat-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line></svg>
+            </div>
+            <span class="cat-name">PROTEIN</span>
+          </div>
+
+          <!-- 2. Creatine -->
+          <div class="cat-tile" onclick="filterByCategory('creatine')">
+            <div class="cat-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+            </div>
+            <span class="cat-name">CREATINE</span>
+          </div>
+
+          <!-- 3. Pre-Workout -->
+          <div class="cat-tile" onclick="filterByCategory('pre-workout')">
+            <div class="cat-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </div>
+            <span class="cat-name">PRE-WORKOUT</span>
+          </div>
+
+          <!-- 4. Amino/BCAA -->
+          <div class="cat-tile" onclick="filterByCategory('amino')">
+            <div class="cat-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M8 12h8"></path><path d="M12 8v8"></path></svg>
+            </div>
+            <span class="cat-name">AMINO / BCAA</span>
+          </div>
+
+          <!-- 5. Weight Gainers -->
+          <div class="cat-tile" onclick="filterByCategory('gainers')">
+            <div class="cat-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            </div>
+            <span class="cat-name">MASS GAINERS</span>
+          </div>
+
+          <!-- 6. Vitamins -->
+          <div class="cat-tile" onclick="filterByCategory('vitamins')">
+            <div class="cat-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V17a1 1 0 0 1-2 0v-.07A7 7 0 0 1 5.07 11H5a1 1 0 0 1 0-2h.07A7 7 0 0 1 11 5.07V5a1 1 0 0 1 2 0v.07A7 7 0 0 1 18.93 11H19a1 1 0 0 1 0 2h-.07A7 7 0 0 1 13 16.93z"></path></svg>
+            </div>
+            <span class="cat-name">VITAMINS</span>
+          </div>
+
+          <!-- 7. Fat Burners -->
+          <div class="cat-tile" onclick="filterByCategory('fat-burners')">
+            <div class="cat-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+            </div>
+            <span class="cat-name">FAT BURNERS</span>
+          </div>
+
+          <!-- 8. Accessories -->
+          <div class="cat-tile" onclick="filterByCategory('accessories')">
+            <div class="cat-icon-wrap">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+            </div>
+            <span class="cat-name">ACCESSORIES</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Best Sellers (Product Grid of 8 Cards with live selector, CSS-drawn art, and quick-view) -->
+    <section class="section-wrap" id="shop">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Verified Best Sellers</span>
+            <h2 class="section-title">TOP PERFORMING SUPPLEMENTS</h2>
+            <p class="section-desc">Every batch is stamped with an importer hologram, lab certificate, and full nutritional transparency.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+            <button class="btn btn-secondary btn-sm filter-active" onclick="filterProductGrid('all', this)">All</button>
+            <button class="btn btn-secondary btn-sm" onclick="filterProductGrid('protein', this)">Protein</button>
+            <button class="btn btn-secondary btn-sm" onclick="filterProductGrid('creatine', this)">Creatine</button>
+            <button class="btn btn-secondary btn-sm" onclick="filterProductGrid('pre-workout', this)">Pre-Workout</button>
+          </div>
+        </div>
+
+        <div class="products-grid" id="productGridContainer">
+          <!-- Dynamically populated via JS for pristine reactivity and variants -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. Bundles & Starter Stacks -->
+    <section class="section-wrap" id="bundles" style="background: var(--surface);">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Synergistic Formulations</span>
+            <h2 class="section-title">STARTER STACKS & BUNDLES</h2>
+            <p class="section-desc">Engineered stacks designed to amplify results while saving up to 25% compared to individual items.</p>
+          </div>
+        </div>
+
+        <div class="bundles-grid">
+          <!-- Bundle 1 -->
+          <div class="bundle-card">
+            <span class="bundle-badge">BEGINNER FAVORITE</span>
+            <h3 class="bundle-title">LEAN MUSCLE FOUNDATION</h3>
+            <p class="bundle-desc">The holy grail stack for anyone seeking pure, clean muscle hypertrophy without excess water or fat gain.</p>
+            <ul class="bundle-items-list">
+              <li class="bundle-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>1x</strong> ISO-Gold 100% Whey Isolate (5 lbs)</span>
+              </li>
+              <li class="bundle-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>1x</strong> Creapure® Micronized Creatine (500g)</span>
+              </li>
+              <li class="bundle-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>1x</strong> FITGO Pro Shaker Bottle (700ml)</span>
+              </li>
+            </ul>
+            <div class="bundle-pricing">
+              <div>
+                <span class="main-price">$109.99</span>
+                <span class="compare-price">$139.99</span>
+              </div>
+              <span class="bundle-save-tag">SAVE 22% ($30 OFF)</span>
+            </div>
+            <button class="btn btn-primary" onclick="addBundleToCart('bundle-1')">
+              Add Stack to Cart
+            </button>
+          </div>
+
+          <!-- Bundle 2 (Featured) -->
+          <div class="bundle-card featured-bundle">
+            <span class="bundle-badge">MOST POPULAR • ADVANCED</span>
+            <h3 class="bundle-title">ULTIMATE ATHLETE STACK</h3>
+            <p class="bundle-desc">Complete 360-degree training performance covering pre-workout drive, intra-workout pump, and post-workout recovery.</p>
+            <ul class="bundle-items-list">
+              <li class="bundle-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>1x</strong> Hydro-Whey Protein Isolate (5 lbs)</span>
+              </li>
+              <li class="bundle-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>1x</strong> Savage Pump High-Stim Pre-Workout (40 serv)</span>
+              </li>
+              <li class="bundle-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>1x</strong> Fermented Intra-EAA Recovery (30 serv)</span>
+              </li>
+              <li class="bundle-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>1x</strong> Creapure® Creatine Monohydrate (250g)</span>
+              </li>
+            </ul>
+            <div class="bundle-pricing">
+              <div>
+                <span class="main-price">$149.99</span>
+                <span class="compare-price">$199.99</span>
+              </div>
+              <span class="bundle-save-tag">SAVE 25% ($50 OFF)</span>
+            </div>
+            <button class="btn btn-primary" onclick="addBundleToCart('bundle-2')">
+              Add Stack to Cart
+            </button>
+          </div>
+
+          <!-- Bundle 3 -->
+          <div class="bundle-card">
+            <span class="bundle-badge">SHRED & DEFINITION</span>
+            <h3 class="bundle-title">LEAN CUT & VASCULARITY</h3>
+            <p class="bundle-desc">Engineered for cutting cycles. Melts subcutaneous fat while ensuring you maintain full muscle glycogen and endurance.</p>
+            <ul class="bundle-items-list">
+              <li class="bundle-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>1x</strong> Pure Native Whey Protein Isolate (2 lbs)</span>
+              </li>
+              <li class="bundle-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>1x</strong> PyroShred Clinical Fat Burner (60 caps)</span>
+              </li>
+              <li class="bundle-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><strong>1x</strong> L-Carnitine L-Tartrate Liquid (3000mg)</span>
+              </li>
+            </ul>
+            <div class="bundle-pricing">
+              <div>
+                <span class="main-price">$94.99</span>
+                <span class="compare-price">$119.99</span>
+              </div>
+              <span class="bundle-save-tag">SAVE 21% ($25 OFF)</span>
+            </div>
+            <button class="btn btn-primary" onclick="addBundleToCart('bundle-3')">
+              Add Stack to Cart
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. How It Works / Authenticity Promise (Visual 3-step timeline) -->
+    <section class="section-wrap" id="authenticity">
+      <div class="container">
+        <div class="section-header" style="text-align: center; justify-content: center;">
+          <div style="max-width: 680px; margin: 0 auto;">
+            <span class="section-kicker">Zero Counterfeits Policy</span>
+            <h2 class="section-title">THE FITGO AUTHENTICITY PROMISE</h2>
+            <p class="section-desc" style="margin: 0.5rem auto 0 auto;">
+              In an industry plagued by counterfeits and diluted formulas, we operate under a strict custody-chain protocol. Here is how we guarantee 100% purity.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-steps">
+          <div class="timeline-step">
+            <div class="step-number">01</div>
+            <h3 class="step-title">DIRECT IMPORTER PIPELINE</h3>
+            <p class="step-desc">
+              We never procure through middlemen or open marketplaces. Every product is sourced directly from certified brand headquarters or authorized national importers with customs clearance invoices on file.
+            </p>
+          </div>
+
+          <div class="timeline-step">
+            <div class="step-number">02</div>
+            <h3 class="step-title">LAB BATCH & EXPIRY AUDIT</h3>
+            <p class="step-desc">
+              Every shipment is verified against manufacturer batch logs. We mandate a strict minimum 8-month remaining shelf-life threshold. No expired or close-to-expiry stock ever enters our fulfillment center.
+            </p>
+          </div>
+
+          <div class="timeline-step">
+            <div class="step-number">03</div>
+            <h3 class="step-title">TAMPER-PROOF QR VERIFICATION</h3>
+            <p class="step-desc">
+              Each canister is dispatched with a specialized tamper-evident holographic seal. Scratch and scan the unique 12-digit QR code directly with the brand's official authenticator app before opening.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. Reviews Carousel (Auto-sliding Testimonial Carousel) -->
+    <section class="section-wrap" id="reviews" style="background: var(--surface);">
+      <div class="container">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Athlete Endorsements</span>
+            <h2 class="section-title">VERIFIED ATHLETE REVIEWS</h2>
+            <p class="section-desc">Over 12,000 verified buyers trust FITGO for their competition preparation and daily fitness routines.</p>
+          </div>
+          <div style="display: flex; gap: 0.5rem;">
+            <button class="icon-btn" id="reviewPrevBtn" aria-label="Previous review">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+            <button class="icon-btn" id="reviewNextBtn" aria-label="Next review">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="reviews-carousel-wrap">
+          <div class="reviews-track" id="reviewsTrack">
+            <!-- Review 1 -->
+            <div class="review-card">
+              <div>
+                <div class="review-header">
+                  <div class="reviewer-info">
+                    <div class="reviewer-name">Rayyan Malik</div>
+                    <div class="verified-buyer-badge">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                      Verified Buyer • 4 Days Ago
+                    </div>
+                  </div>
+                  <div class="rating-row">★★★★★</div>
+                </div>
+                <p class="review-quote">
+                  "I was always skeptical about ordering supplements online due to fake powders in circulation. Scratched the hologram code on my Whey Isolate and it verified instantly on the brand site. Mixability is pristine and delivery was under 24 hours."
+                </p>
+              </div>
+              <div class="review-product-tag">Purchased: ISO-Gold 100% Whey Isolate (Double Rich Chocolate)</div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="review-card">
+              <div>
+                <div class="review-header">
+                  <div class="reviewer-info">
+                    <div class="reviewer-name">Sana Farooq</div>
+                    <div class="verified-buyer-badge">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                      Competitive Powerlifter
+                    </div>
+                  </div>
+                  <div class="rating-row">★★★★★</div>
+                </div>
+                <p class="review-quote">
+                  "The nutrition facts and price-per-serving breakdowns on FITGO make other stores look ancient. Got the Creapure Creatine and savage pump pre-workout. The laser focus during my deadlift heavy singles is unmatched."
+                </p>
+              </div>
+              <div class="review-product-tag">Purchased: Ultimate Athlete Performance Stack</div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="review-card">
+              <div>
+                <div class="review-header">
+                  <div class="reviewer-info">
+                    <div class="reviewer-name">Hamza Tariq</div>
+                    <div class="verified-buyer-badge">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                      Verified Buyer • 1 Week Ago
+                    </div>
+                  </div>
+                  <div class="rating-row">★★★★★</div>
+                </div>
+                <p class="review-quote">
+                  "Cash on delivery came right to my doorstep with zero hassle. Packaging was bubble wrapped in heavy duty corrugated boxes. Batch expiry is 2028 so it's super fresh. FITGO is my permanent supplement dealer now."
+                </p>
+              </div>
+              <div class="review-product-tag">Purchased: Creapure® Micronized Creatine 500g</div>
+            </div>
+
+            <!-- Review 4 -->
+            <div class="review-card">
+              <div>
+                <div class="review-header">
+                  <div class="reviewer-info">
+                    <div class="reviewer-name">Zainab Khan</div>
+                    <div class="verified-buyer-badge">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                      Crossfit Coach
+                    </div>
+                  </div>
+                  <div class="rating-row">★★★★★</div>
+                </div>
+                <p class="review-quote">
+                  "No bloating, digests smooth as silk. The Fermented EAAs kept my endurance rock solid through brutal 90-minute conditioning workouts. Outstanding customer service."
+                </p>
+              </div>
+              <div class="review-product-tag">Purchased: Fermented Intra-EAA Matrix (Blue Raspberry)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. FAQ Accordion -->
+    <section class="section-wrap" id="faq">
+      <div class="container">
+        <div class="section-header" style="text-align: center; justify-content: center;">
+          <div style="max-width: 640px; margin: 0 auto;">
+            <span class="section-kicker">Got Questions?</span>
+            <h2 class="section-title">FREQUENTLY ASKED QUESTIONS</h2>
+            <p class="section-desc" style="margin: 0.5rem auto 0 auto;">Clear answers on authenticity, shipping, cash on delivery, and our customer guarantee.</p>
+          </div>
+        </div>
+
+        <div class="faq-container">
+          <!-- FAQ 1 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>How do I verify that my supplement is 100% genuine?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Every single tub sold on FITGO features a tamper-evident holographic seal from the official brand or authorized national importer. You can scratch the security code and enter it on the manufacturer's global verification portal or scan the QR code to confirm instant batch validation and import clearance.
+            </div>
+          </div>
+
+          <!-- FAQ 2 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>What are your shipping timelines and free delivery thresholds?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Orders placed before 3:00 PM are dispatched on the same business day. Delivery takes 24–48 hours for major metropolitan hubs and 2–3 days for outer regions. All orders above $75 receive complimentary premium courier delivery with SMS/WhatsApp live tracking.
+            </div>
+          </div>
+
+          <!-- FAQ 3 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>Is Cash on Delivery (COD) supported?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              Yes, Cash on Delivery is supported nationwide up to $300 per order. For high-value COD orders, our automated system or support team will send an instant SMS/WhatsApp confirmation OTP prior to dispatch to safeguard against fraudulent shipments.
+            </div>
+          </div>
+
+          <!-- FAQ 4 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>What is your return and refund policy?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              We offer a 14-day hassle-free return guarantee on all sealed, unopened, and unexpired items with their original holographic security seal intact. For health and hygiene compliance, opened supplement containers cannot be returned unless verified damaged or mispicked upon arrival.
+            </div>
+          </div>
+
+          <!-- FAQ 5 -->
+          <div class="faq-item">
+            <button class="faq-question">
+              <span>What is your policy regarding expiry dates?</span>
+              <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+              We implement a strict FEFO (First-Expiry-First-Out) warehouse inventory management protocol. We never ship any product with less than 6 to 8 months of shelf life remaining, ensuring your tub stays fully potent throughout your cycle.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. Newsletter Signup -->
+    <section class="section-wrap" style="padding-top: 1rem;">
+      <div class="container">
+        <div class="newsletter-card">
+          <span class="section-kicker">VIP ATHLETE CLUB</span>
+          <h2 class="section-title">GET 15% OFF YOUR FIRST ORDER</h2>
+          <p class="section-desc" style="margin: 0.5rem auto 0 auto;">Join over 45,000 lifters receiving exclusive flash stack deals, restock drops, and science-backed supplement protocols.</p>
+          
+          <form class="newsletter-form" id="newsletterForm" onsubmit="handleNewsletterSubmit(event)">
+            <input 
+              type="email" 
+              class="newsletter-input" 
+              id="newsletterEmail" 
+              placeholder="Enter your email or WhatsApp number..." 
+              required
+            />
+            <button type="submit" class="btn btn-primary" id="newsletterSubmitBtn">
+              Claim 15% Off
+            </button>
+          </form>
+          <div id="newsletterSuccessMsg" style="display: none; margin-top: 1rem; color: var(--success); font-weight: 700;">
+            ✓ Welcome to the FITGO Elite! Use code <strong style="color: #FFFFFF; background: rgba(34,197,94,0.2); padding: 2px 8px; border-radius: 4px;">FITGO15</strong> at checkout.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 13. Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="#" class="brand-logo" style="margin-bottom: 1rem;">
+            FITGO<span class="dot">.</span>
+          </a>
+          <p style="line-height: 1.6; margin-bottom: 1.5rem; max-width: 320px;">
+            FITGO is the premier direct-to-consumer destination for 100% authentic bodybuilding and sports nutrition supplements. Certified importer sourcing, batch transparency, and lightning-fast logistics.
+          </p>
+          <div style="display: flex; gap: 0.75rem;">
+            <a href="#" class="icon-btn" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+            </a>
+            <a href="#" class="icon-btn" aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            </a>
+            <a href="#" class="icon-btn" aria-label="Twitter">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>SHOP</h4>
+          <ul class="footer-links">
+            <li><a href="#shop" onclick="filterByCategory('protein')">Whey & Casein Protein</a></li>
+            <li><a href="#shop" onclick="filterByCategory('creatine')">Creatine Monohydrate</a></li>
+            <li><a href="#shop" onclick="filterByCategory('pre-workout')">High-Stim Pre-Workouts</a></li>
+            <li><a href="#shop" onclick="filterByCategory('amino')">BCAAs & Essential EAAs</a></li>
+            <li><a href="#bundles">Starter Stacks & Bundles</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>TRUST & SUPPORT</h4>
+          <ul class="footer-links">
+            <li><a href="#authenticity">Authenticity Guarantee</a></li>
+            <li><a href="#faq">Shipping & Delivery Rates</a></li>
+            <li><a href="#faq">14-Day Returns & Refunds</a></li>
+            <li><a href="#faq">Batch Number Verification</a></li>
+            <li><a href="#faq">Cash on Delivery Policy</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>HOURS & CONTACT</h4>
+          <ul class="footer-links">
+            <li><span>Mon - Sat: 9:00 AM – 9:00 PM</span></li>
+            <li><span>Support: support@fitgo-nutrition.com</span></li>
+            <li><span>WhatsApp Hotline: +1 (800) 555-FITGO</span></li>
+            <li><span>Direct Importer Hub: Warehouse 4B, Metro Logistics Center</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- FDA Supplement Disclaimer (Mandated in PRD section 10) -->
+      <div class="supplement-disclaimer">
+        *DISCLAIMER: Statements made regarding these products have not been evaluated by the Food and Drug Administration. Dietary supplements are not intended to diagnose, treat, cure, or prevent any disease. Always consult with a licensed healthcare practitioner prior to beginning any diet, training, or supplement program. Not intended for use by persons under the age of 18 or pregnant/lactating women.
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2026 FITGO Nutrition Inc. All rights reserved. 100% Genuine Certified.</div>
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <span style="font-weight: 700; color: var(--text);">SECURE PAYMENT:</span>
+          <span>VISA</span> • <span>MASTERCARD</span> • <span>APPLE PAY</span> • <span>CASH ON DELIVERY</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-In Cart Drawer -->
+  <div class="drawer-overlay" id="cartOverlay">
+    <div class="cart-drawer">
+      <div class="drawer-header">
+        <h3 class="drawer-title font-display">YOUR CART (<span id="cartDrawerCount">0</span>)</h3>
+        <button class="drawer-close" id="cartCloseBtn" aria-label="Close cart">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <!-- Free Shipping Progress Bar -->
+      <div class="shipping-progress">
+        <div class="shipping-msg">
+          <span id="shippingBarText">Add $75.00 more for FREE shipping</span>
+          <span id="shippingPercentText" style="font-weight: 700; color: var(--accent);">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="shippingBarFill"></div>
+        </div>
+      </div>
+
+      <!-- Itemized Cart List -->
+      <div class="cart-items-list" id="cartItemsContainer">
+        <!-- Rendered via JS -->
+      </div>
+
+      <!-- Cart Drawer Footer -->
+      <div class="cart-drawer-footer">
+        <div style="margin-bottom: 0.75rem;">
+          <div style="display: flex; gap: 0.5rem;">
+            <input type="text" id="couponInput" placeholder="Promo code (e.g. FITGO15)" style="flex:1; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.85rem; outline: none;" />
+            <button class="btn btn-secondary btn-sm" onclick="applyCouponCode()">Apply</button>
+          </div>
+          <div id="couponStatusMsg" style="font-size: 0.75rem; margin-top: 0.35rem; display: none;"></div>
+        </div>
+
+        <div class="cart-subtotal-row">
+          <span class="subtotal-label">Subtotal:</span>
+          <span class="subtotal-amount" id="cartSubtotalAmount">$0.00</span>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--muted); margin-bottom: 1rem;">
+          Taxes & delivery calculated at next step. Cash on delivery available.
+        </p>
+        <button class="btn btn-primary" style="width: 100%;" id="checkoutDrawerBtn" onclick="openCheckoutModal()">
+          Proceed to Checkout
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick View Product Modal -->
+  <div class="modal-overlay" id="quickViewModal">
+    <div class="modal-card">
+      <button class="modal-close-btn" onclick="closeQuickViewModal()" aria-label="Close modal">✕</button>
+      <div id="quickViewContent">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Find My Stack Quiz Modal -->
+  <div class="modal-overlay" id="stackFinderModal">
+    <div class="modal-card" style="max-width: 580px;">
+      <button class="modal-close-btn" onclick="closeStackFinderModal()" aria-label="Close modal">✕</button>
+      <div id="stackQuizContent">
+        <span class="section-kicker">Interactive Recommender</span>
+        <h3 class="font-display" style="font-size: 1.8rem; margin-bottom: 0.5rem;">FIND YOUR OPTIMAL STACK</h3>
+        <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 1.5rem;">Answer 3 quick questions to discover your personalized supplement protocol.</p>
+        
+        <div id="quizStep1">
+          <label style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 0.75rem;">1. What is your primary training target?</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <button class="btn btn-secondary btn-sm" onclick="selectQuizGoal('muscle')">💪 Lean Muscle Hypertrophy</button>
+            <button class="btn btn-secondary btn-sm" onclick="selectQuizGoal('fatloss')">🔥 Accelerated Fat Loss</button>
+            <button class="btn btn-secondary btn-sm" onclick="selectQuizGoal('energy')">⚡ High Energy & Pumps</button>
+            <button class="btn btn-secondary btn-sm" onclick="selectQuizGoal('recovery')">🩹 Fast Muscle Recovery</button>
+          </div>
+        </div>
+
+        <div id="quizStep2" style="display: none;">
+          <label style="font-size: 0.9rem; font-weight: 700; display: block; margin-bottom: 0.75rem;">2. What is your training experience level?</label>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 1.5rem;">
+            <button class="btn btn-secondary btn-sm" onclick="selectQuizLevel('beginner')">Beginner (0 - 1 year)</button>
+            <button class="btn btn-secondary btn-sm" onclick="selectQuizLevel('intermediate')">Intermediate (1 - 3 years)</button>
+            <button class="btn btn-secondary btn-sm" onclick="selectQuizLevel('advanced')">Advanced Lifter (3+ years)</button>
+            <button class="btn btn-secondary btn-sm" onclick="selectQuizLevel('athlete')">Competitive Athlete</button>
+          </div>
+        </div>
+
+        <div id="quizResult" style="display: none;">
+          <div style="padding: 1.25rem; background: var(--surface-2); border: 1px solid var(--accent); border-radius: var(--radius-md); margin-bottom: 1.5rem;">
+            <div style="color: var(--accent); font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">YOUR RECOMMENDED PROTOCOL:</div>
+            <h4 id="quizResultTitle" class="font-display" style="font-size: 1.6rem; margin: 0.25rem 0 0.5rem 0;">THE ULTIMATE MUSCLE BUILDER</h4>
+            <p id="quizResultDesc" style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.4;"></p>
+            <div id="quizResultItems" style="font-size: 0.85rem; font-weight: 600; line-height: 1.6;"></div>
+          </div>
+          <button class="btn btn-primary" style="width: 100%;" id="quizAddStackBtn">
+            Add Recommended Stack to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Modal -->
+  <div class="modal-overlay" id="searchModal">
+    <div class="modal-card" style="max-width: 600px; padding: 1.5rem;">
+      <button class="modal-close-btn" onclick="closeSearchModal()" aria-label="Close search">✕</button>
+      <div style="margin-bottom: 1rem;">
+        <h4 class="font-display" style="font-size: 1.5rem; margin-bottom: 0.75rem;">LIVE CATALOG SEARCH</h4>
+        <input 
+          type="text" 
+          id="searchInputField" 
+          placeholder="Search by keyword, brand (e.g. Creapure, Whey, Pre-Workout)..." 
+          style="width: 100%; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); padding: 0.85rem 1rem; border-radius: var(--radius-sm); font-size: 1rem; outline: none;"
+          oninput="handleSearchInput(this.value)"
+        />
+      </div>
+      <div id="searchResultsList" style="max-height: 380px; overflow-y: auto; display: flex; flex-direction: column; gap: 0.5rem;">
+        <!-- Search suggestions injected here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout / Order Confirmation Modal (PRD Section 5.3 & 6) -->
+  <div class="modal-overlay" id="checkoutModal">
+    <div class="modal-card" style="max-width: 620px;">
+      <button class="modal-close-btn" onclick="closeCheckoutModal()" aria-label="Close checkout">✕</button>
+      <div id="checkoutFormStep">
+        <span class="section-kicker">Fast & Secure</span>
+        <h3 class="font-display" style="font-size: 1.8rem; margin-bottom: 0.5rem;">INSTANT CHECKOUT</h3>
+        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1.5rem;">Complete your delivery details. Cash on delivery or card accepted.</p>
+        
+        <form onsubmit="handlePlaceOrder(event)" style="display: flex; flex-direction: column; gap: 1rem;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div>
+              <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Full Name *</label>
+              <input type="text" required placeholder="John Doe" style="width: 100%; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); padding: 0.65rem 0.85rem; border-radius: 6px; font-size: 0.9rem; outline: none;" />
+            </div>
+            <div>
+              <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Phone / WhatsApp * (For Dispatch)</label>
+              <input type="tel" required placeholder="+1 (555) 019-2834" style="width: 100%; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); padding: 0.65rem 0.85rem; border-radius: 6px; font-size: 0.9rem; outline: none;" />
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Delivery Street Address *</label>
+            <input type="text" required placeholder="Apt 4B, 104 Fitness Way" style="width: 100%; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); padding: 0.65rem 0.85rem; border-radius: 6px; font-size: 0.9rem; outline: none;" />
+          </div>
+
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;">
+            <div>
+              <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">City / District *</label>
+              <input type="text" required placeholder="Downtown" style="width: 100%; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); padding: 0.65rem 0.85rem; border-radius: 6px; font-size: 0.9rem; outline: none;" />
+            </div>
+            <div>
+              <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.35rem;">Postal Code</label>
+              <input type="text" placeholder="10001" style="width: 100%; background: var(--surface-2); border: 1px solid var(--line); color: var(--text); padding: 0.65rem 0.85rem; border-radius: 6px; font-size: 0.9rem; outline: none;" />
+            </div>
+          </div>
+
+          <div>
+            <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.5rem;">Select Payment Method *</label>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <label style="display: flex; align-items: center; gap: 0.5rem; background: var(--surface-2); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--line); cursor: pointer;">
+                <input type="radio" name="paymentMethod" value="cod" checked />
+                <span style="font-size: 0.85rem; font-weight: 700;">Cash On Delivery (COD)</span>
+              </label>
+              <label style="display: flex; align-items: center; gap: 0.5rem; background: var(--surface-2); padding: 0.75rem; border-radius: 6px; border: 1px solid var(--line); cursor: pointer;">
+                <input type="radio" name="paymentMethod" value="card" />
+                <span style="font-size: 0.85rem; font-weight: 700;">Credit / Debit Card</span>
+              </label>
+            </div>
+          </div>
+
+          <div style="background: var(--surface-2); padding: 1rem; border-radius: 8px; border: 1px solid var(--line); margin-top: 0.5rem;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem;">
+              <span style="color: var(--muted);">Items Total:</span>
+              <span id="checkoutItemsTotal">$0.00</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.35rem;">
+              <span style="color: var(--muted);">Delivery:</span>
+              <span id="checkoutShippingTotal" style="color: var(--success); font-weight: 600;">FREE</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 1.15rem; font-weight: 800; border-top: 1px solid var(--line); padding-top: 0.5rem; margin-top: 0.5rem;">
+              <span>Total Payable:</span>
+              <span id="checkoutGrandTotal" style="color: var(--accent);">$0.00</span>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">
+            Confirm & Place Order
+          </button>
+        </form>
+      </div>
+
+      <!-- Order Confirmed State -->
+      <div id="checkoutSuccessStep" style="display: none; text-align: center; padding: 1.5rem 0;">
+        <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(34, 197, 94, 0.15); border: 2px solid var(--success); color: var(--success); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.25rem auto; font-size: 1.75rem;">
+          ✓
+        </div>
+        <h3 class="font-display" style="font-size: 2rem; margin-bottom: 0.5rem;">ORDER CONFIRMED!</h3>
+        <p style="font-size: 0.95rem; color: var(--muted); margin-bottom: 1.5rem;">
+          Order <strong id="confirmedOrderNum" style="color: var(--text);">#FITGO-88219</strong> has been received and locked for packing.
+        </p>
+        <div style="background: var(--surface-2); padding: 1.25rem; border-radius: var(--radius-md); border: 1px solid var(--line); text-align: left; margin-bottom: 1.5rem; font-size: 0.85rem; line-height: 1.6;">
+          <div>📦 <strong>Status:</strong> Preparing for 24-Hour Dispatch</div>
+          <div>🛡️ <strong>Authenticity:</strong> Importer Hologram & Batch Verification Included</div>
+          <div>📱 <strong>Tracking:</strong> Live courier link sent to your phone/WhatsApp</div>
+        </div>
+        <button class="btn btn-primary" onclick="closeCheckoutModal()">
+          Continue Shopping
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastNotification" style="position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: #1C1F25; color: #FFFFFF; border: 1px solid var(--accent); padding: 0.75rem 1.5rem; border-radius: 8px; z-index: 200; font-size: 0.9rem; font-weight: 600; display: flex; align-items: center; gap: 0.6rem; box-shadow: 0 10px 30px rgba(0,0,0,0.6); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease; opacity: 0; pointer-events: none;">
+    <span id="toastIcon">✓</span>
+    <span id="toastMsg">Added to cart!</span>
+  </div>
+
+
+  <script>
+    // --- 1. Product Catalog Data ---
+    const PRODUCTS = [
+      {
+        id: 'iso-gold-whey',
+        name: 'ISO-Gold 100% Whey Isolate',
+        brand: 'FITGO Elite Series',
+        category: 'protein',
+        goal: 'muscle-gain',
+        price: 64.99,
+        comparePrice: 79.99,
+        servings: 75,
+        pricePerServing: '$0.86 / serv',
+        rating: 4.9,
+        reviewsCount: 1420,
+        badge: 'BEST SELLER',
+        badgeClass: 'badge-bestseller',
+        inStock: true,
+        stockText: 'In Stock • Ready to Dispatch',
+        batchNumber: 'FG-WHEY-8842',
+        expiryDate: '09/2028',
+        accentColor: '#FF4D1A',
+        flavors: ['Double Rich Chocolate', 'Vanilla Ice Cream', 'Cookies & Cream', 'Mocha Cappuccino'],
+        sizes: ['5 lbs (75 serv)', '2 lbs (30 serv)', '10 lbs (150 serv)'],
+        nutrition: {
+          servingSize: '31g (1 Scoop)',
+          calories: '120 kcal',
+          protein: '27g (100% Whey Isolate)',
+          bcaa: '6.2g EAAs/BCAAs',
+          carbs: '1g',
+          fat: '0.5g',
+          sugar: '0g'
+        },
+        description: 'Cold-microfiltered ultra-pure whey protein isolate engineered for hyper-fast amino acid absorption and zero digestive distress. Zero added sugars, gluten-free, and tested for banned substances.',
+        directions: 'Mix 1 scoop with 250ml cold water or skim milk within 30 minutes post-workout, or first thing in the morning.'
+      },
+      {
+        id: 'creapure-creatine',
+        name: 'Creapure® Micronized Creatine',
+        brand: 'FITGO Lab Tech',
+        category: 'creatine',
+        goal: 'muscle-gain',
+        price: 29.99,
+        comparePrice: 38.99,
+        servings: 100,
+        pricePerServing: '$0.30 / serv',
+        rating: 5.0,
+        reviewsCount: 2190,
+        badge: '100% CREAPURE®',
+        badgeClass: 'badge-verified',
+        inStock: true,
+        stockText: 'In Stock • 99.99% Ultra Pure',
+        batchNumber: 'FG-CREA-9014',
+        expiryDate: '11/2028',
+        accentColor: '#FFB020',
+        flavors: ['Unflavored Micronized', 'Blue Raspberry Burst'],
+        sizes: ['500g (100 serv)', '250g (50 serv)', '1kg (200 serv)'],
+        nutrition: {
+          servingSize: '5g (1 Heaping Scoop)',
+          calories: '0 kcal',
+          protein: '0g',
+          creatine: '5,000mg Creapure® Monohydrate',
+          carbs: '0g',
+          fat: '0g',
+          sugar: '0g'
+        },
+        description: 'Manufactured in Trostberg, Germany under GMP pharma standards. 200-mesh ultra-micronized creatine for instantaneous ATP regeneration, increased muscle volume, and maximal strength output.',
+        directions: 'Take 5g daily mixed with your pre/post workout shake or fruit juice. Consistency is key for muscle saturation.'
+      },
+      {
+        id: 'savage-preworkout',
+        name: 'Savage Pump Pre-Workout V3',
+        brand: 'FITGO Ignite',
+        category: 'pre-workout',
+        goal: 'energy',
+        price: 44.99,
+        comparePrice: 54.99,
+        servings: 40,
+        pricePerServing: '$1.12 / serv',
+        rating: 4.8,
+        reviewsCount: 980,
+        badge: 'CLINICAL DOSE',
+        badgeClass: 'badge-bestseller',
+        inStock: true,
+        stockText: 'In Stock • High Stimulant',
+        batchNumber: 'FG-PRE-7731',
+        expiryDate: '07/2028',
+        accentColor: '#FF4D1A',
+        flavors: ['Sour Gummy Worm', 'Electric Blue Lemonade', 'Green Apple Blast'],
+        sizes: ['400g (40 serv)', '200g (20 serv)'],
+        nutrition: {
+          servingSize: '10g (1 Scoop)',
+          calories: '5 kcal',
+          caffeine: '350mg Caffeine Anhydrous',
+          citrulline: '6,000mg L-Citrulline Malate',
+          betaAlanine: '3,200mg CarnoSyn®',
+          tyrosine: '1,000mg L-Tyrosine'
+        },
+        description: 'Formulated with clinical dosages of vasodilators and neural activators. Delivers relentless skin-splitting vascular pumps, laser tunnel-vision focus, and crash-free explosive energy.',
+        directions: 'Assess tolerance with 1/2 scoop in 200ml water 20 minutes before training. Do not exceed 1 scoop in 24 hours.'
+      },
+      {
+        id: 'fermented-eaa',
+        name: 'Fermented Intra-EAA Matrix',
+        brand: 'FITGO Recovery',
+        category: 'amino',
+        goal: 'recovery',
+        price: 36.99,
+        comparePrice: 45.99,
+        servings: 30,
+        pricePerServing: '$1.23 / serv',
+        rating: 4.9,
+        reviewsCount: 640,
+        badge: 'PLANT FERMENTED',
+        badgeClass: 'badge-verified',
+        inStock: true,
+        stockText: 'In Stock • Zero Dyes',
+        batchNumber: 'FG-EAA-3329',
+        expiryDate: '08/2028',
+        accentColor: '#22C55E',
+        flavors: ['Watermelon Hydration', 'Mango Passion', 'Peach Iced Tea'],
+        sizes: ['390g (30 serv)'],
+        nutrition: {
+          servingSize: '13g (1 Scoop)',
+          calories: '0 kcal',
+          totalEAA: '10,000mg Full Spectrum EAAs',
+          bcaaRatio: '6,000mg (2:1:1 Fermented BCAAs)',
+          electrolytes: 'Pink Himalayan Salt & Coconut Water'
+        },
+        description: 'Provides all 9 essential amino acids in free-form fermented state with natural coconut water electrolytes. Prevents intra-workout muscle catabolism and eliminates next-day muscular stiffness.',
+        directions: 'Sip 1 scoop mixed with 500ml ice-cold water throughout your intense resistance or cardio training session.'
+      },
+      {
+        id: 'monster-mass-gainer',
+        name: 'Titan Clean Mass Gainer 12lb',
+        brand: 'FITGO Elite Series',
+        category: 'gainers',
+        goal: 'muscle-gain',
+        price: 69.99,
+        comparePrice: 84.99,
+        servings: 24,
+        pricePerServing: '$2.91 / serv',
+        rating: 4.7,
+        reviewsCount: 520,
+        badge: 'CLEAN CARBS',
+        badgeClass: 'badge-bestseller',
+        inStock: true,
+        stockText: 'In Stock • Oat & Sweet Potato Base',
+        batchNumber: 'FG-MASS-1102',
+        expiryDate: '05/2028',
+        accentColor: '#FFB020',
+        flavors: ['Fudge Chocolate Milkshake', 'Creamy Peanut Butter', 'Strawberry Cream'],
+        sizes: ['12 lbs (24 serv)', '6 lbs (12 serv)'],
+        nutrition: {
+          servingSize: '230g (2 Scoops)',
+          calories: '1,050 kcal',
+          protein: '60g Triple-Stage Protein',
+          carbs: '190g Complex Carbohydrates',
+          fat: '6g',
+          creatine: '5g Micronized'
+        },
+        description: 'Engineered specifically for hardgainers struggling to pack on dense weight. Made without cheap maltodextrin or sugar spikes—utilizes whole organic oats and sweet potato starch with digestive enzymes.',
+        directions: 'Consume 1 scoop between meals and 1 scoop directly post-workout or before bedtime.'
+      },
+      {
+        id: 'pyroshred-thermo',
+        name: 'PyroShred Thermal Fat Burner',
+        brand: 'FITGO Lab Tech',
+        category: 'fat-burners',
+        goal: 'fat-loss',
+        price: 39.99,
+        comparePrice: 49.99,
+        servings: 60,
+        pricePerServing: '$0.66 / serv',
+        rating: 4.8,
+        reviewsCount: 790,
+        badge: 'METABOLIC ACCELERATOR',
+        badgeClass: 'badge-bestseller',
+        inStock: true,
+        stockText: 'In Stock • 60 Veggie Capsules',
+        batchNumber: 'FG-SHRED-404',
+        expiryDate: '10/2028',
+        accentColor: '#FF4D1A',
+        flavors: ['Rapid-Release Capsules'],
+        sizes: ['60 Capsules (60 serv)', '120 Capsules (120 serv)'],
+        nutrition: {
+          servingSize: '1 Capsule',
+          calories: '0 kcal',
+          egcg: '300mg Green Tea Extract (50% EGCG)',
+          capsimax: '100mg Capsimax® Cayenne Extract',
+          carnitine: '500mg Acetyl-L-Carnitine',
+          caffeine: '200mg Natural Caffeine'
+        },
+        description: 'Multi-pathway thermogenic fat burner. Mobilizes stubborn adipose tissue, optimizes metabolic expenditure via non-shivering thermogenesis, and suppresses hunger cravings on deficit diets.',
+        directions: 'Take 1 capsule in the morning with 300ml water. Optional: take 1 capsule 30 minutes before cardio. Do not take within 5 hours of sleep.'
+      },
+      {
+        id: 'vital-shield-multi',
+        name: 'Vital Shield Athlete Multi & Omega',
+        brand: 'FITGO Health',
+        category: 'vitamins',
+        goal: 'recovery',
+        price: 24.99,
+        comparePrice: 32.99,
+        servings: 60,
+        pricePerServing: '$0.41 / serv',
+        rating: 4.9,
+        reviewsCount: 410,
+        badge: 'CHELATED MINERALS',
+        badgeClass: 'badge-verified',
+        inStock: true,
+        stockText: 'In Stock • High Bioavailability',
+        batchNumber: 'FG-VIT-502',
+        expiryDate: '12/2028',
+        accentColor: '#22C55E',
+        flavors: ['Coated Tablets'],
+        sizes: ['60 Tablets (60 serv)', '120 Tablets (120 serv)'],
+        nutrition: {
+          servingSize: '1 Tablet',
+          vitaminD3: '5,000 IU (1250% DV)',
+          zincBisglycinate: '30mg (272% DV)',
+          magnesium: '200mg TRAACS® Chelate',
+          k2: '100mcg MK-7 Menaquinone'
+        },
+        description: 'High-potency micronutrient formula built specifically for athletes undergoing heavy oxidative stress. Contains fully chelated Albion® minerals for superior absorption.',
+        directions: 'Take 1 tablet daily with your largest meal of the day containing healthy fats.'
+      },
+      {
+        id: 'pro-shaker-steel',
+        name: 'FITGO Insulated Steel Shaker 24oz',
+        brand: 'FITGO Gear',
+        category: 'accessories',
+        goal: 'muscle-gain',
+        price: 19.99,
+        comparePrice: 24.99,
+        servings: 1,
+        pricePerServing: 'Lifetime Gear',
+        rating: 4.9,
+        reviewsCount: 830,
+        badge: 'LEAK PROOF 100%',
+        badgeClass: 'badge-verified',
+        inStock: true,
+        stockText: 'In Stock • Food-Grade 304 Steel',
+        batchNumber: 'FG-GEAR-71',
+        expiryDate: 'N/A Lifetime',
+        accentColor: '#FF4D1A',
+        flavors: ['Matte Stealth Black', 'Brushed Titanium Steel', 'Solar Orange'],
+        sizes: ['24 oz (700ml)'],
+        nutrition: {
+          material: 'Double-Wall Vacuum Insulated 304 Steel',
+          coldRetention: 'Keeps Shakes Cold for 24 Hours',
+          features: 'Whisper-Quiet Silent Agitator & Measurement Markings'
+        },
+        description: 'Say goodbye to smelly plastic shakers. Surgical stainless steel eliminates foul protein residue odors. Double wall vacuum insulation prevents sweating and keeps ice solid all day.',
+        directions: 'Hand wash lid with warm water. Bottle body is dishwasher safe.'
+      }
+    ];
+
+    // --- 2. State & Storage ---
+    let cart = [];
+    let wishlist = [];
+    let currentDiscount = 0;
+    let appliedCoupon = null;
+
+    // Load persisted data
+    try {
+      const savedCart = localStorage.getItem('fitgo_cart');
+      if (savedCart) cart = JSON.parse(savedCart);
+      const savedWish = localStorage.getItem('fitgo_wishlist');
+      if (savedWish) wishlist = JSON.parse(savedWish);
+    } catch(e) {
+      console.warn('Storage unavailable:', e);
+    }
+
+    // --- 3. SVG Canister Mockup Generator ---
+    function renderCanisterSVG(product, width = 120, height = 150) {
+      const primary = product.accentColor || '#FF4D1A';
+      return `
+        <svg width="${width}" height="${height}" viewBox="0 0 140 180" fill="none" class="product-mockup" xmlns="http://www.w3.org/2000/svg">
+          <!-- Lid -->
+          <rect x="30" y="8" width="80" height="22" rx="4" fill="#1C1F25" stroke="${primary}" stroke-width="2"/>
+          <line x1="38" y1="16" x2="102" y2="16" stroke="#2F3542" stroke-width="1.5"/>
+          <line x1="38" y1="22" x2="102" y2="22" stroke="#2F3542" stroke-width="1.5"/>
+          <!-- Tub -->
+          <path d="M22 28H118V156C118 166 110 174 100 174H40C30 174 22 166 22 156V28Z" fill="#121419" stroke="#262B36" stroke-width="2"/>
+          <!-- Label Panel -->
+          <rect x="22" y="52" width="96" height="84" fill="#181B22"/>
+          <rect x="22" y="52" width="96" height="3" fill="${primary}"/>
+          <text x="70" y="70" fill="${primary}" font-family="'Anton', sans-serif" font-size="9" text-anchor="middle" font-weight="900" letter-spacing="1">FITGO</text>
+          <text x="70" y="88" fill="#F4F5F7" font-family="'Anton', sans-serif" font-size="12" text-anchor="middle" font-weight="900">${product.category.toUpperCase()}</text>
+          <text x="70" y="104" fill="#9AA1AE" font-family="'Inter', sans-serif" font-size="7" text-anchor="middle" font-weight="600">${product.servings} SERVINGS</text>
+          <rect x="42" y="112" width="56" height="12" rx="3" fill="rgba(255,255,255,0.06)"/>
+          <text x="70" y="121" fill="#22C55E" font-family="'Inter', sans-serif" font-size="6.5" text-anchor="middle" font-weight="700">✓ 100% PURE</text>
+          <!-- Specular Highlight line -->
+          <path d="M30 32L26 160" stroke="rgba(255,255,255,0.08)" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+      `;
+    }
+
+    // --- 4. Render Product Grid ---
+    function renderProductGrid(productsToRender) {
+      const container = document.getElementById('productGridContainer');
+      if (!container) return;
+
+      container.innerHTML = productsToRender.map(p => {
+        const isWishlisted = wishlist.includes(p.id);
+        const defaultFlavor = p.flavors[0];
+        const defaultSize = p.sizes[0];
+
+        return `
+          <div class="product-card" data-id="${p.id}" data-category="${p.category}" data-goal="${p.goal}">
+            <div class="product-thumb">
+              <span class="badge-ribbon ${p.badgeClass}">${p.badge}</span>
+              <button 
+                class="wishlist-btn ${isWishlisted ? 'active' : ''}" 
+                onclick="toggleWishlist('${p.id}', event)"
+                title="Save to Wishlist"
+              >
+                ♥
+              </button>
+              ${renderCanisterSVG(p, 130, 160)}
+              <button class="quick-view-overlay-btn" onclick="openQuickView('${p.id}')">
+                Quick View
+              </button>
+            </div>
+
+            <div class="product-body">
+              <div class="product-meta-row">
+                <span class="product-brand">${p.brand}</span>
+                <div class="rating-row">
+                  <span>★</span>
+                  <span>${p.rating}</span>
+                  <span style="color:var(--muted); font-weight:normal;">(${p.reviewsCount})</span>
+                </div>
+              </div>
+
+              <h3 class="product-name font-display">${p.name}</h3>
+
+              <div class="serving-meta">
+                ${p.servings > 1 ? `<strong>${p.servings} Servings</strong> • ` : ''}<span>${p.stockText}</span>
+              </div>
+
+              <!-- Variant Selectors -->
+              <div class="variant-pickers">
+                <select class="variant-select flavor-select" id="flavor-${p.id}" aria-label="Select Flavor">
+                  ${p.flavors.map(f => `<option value="${f}">${f}</option>`).join('')}
+                </select>
+                <select class="variant-select size-select" id="size-${p.id}" aria-label="Select Size">
+                  ${p.sizes.map(s => `<option value="${s}">${s}</option>`).join('')}
+                </select>
+              </div>
+
+              <div class="price-row">
+                <div>
+                  <span class="main-price tabular-nums">$${p.price.toFixed(2)}</span>
+                  ${p.comparePrice ? `<span class="compare-price tabular-nums">$${p.comparePrice.toFixed(2)}</span>` : ''}
+                </div>
+                <span class="pps-badge tabular-nums">${p.pricePerServing}</span>
+              </div>
+
+              <button 
+                class="add-to-cart-btn" 
+                id="btn-add-${p.id}"
+                onclick="handleCardAddToCart('${p.id}')"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                Add To Cart
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // --- 5. Filtering ---
+    function filterProductGrid(category, btnElement) {
+      if (btnElement) {
+        document.querySelectorAll('#shop .btn-sm').forEach(b => b.classList.remove('btn-primary'));
+        btnElement.classList.add('btn-primary');
+      }
+
+      if (category === 'all') {
+        renderProductGrid(PRODUCTS);
+      } else {
+        const filtered = PRODUCTS.filter(p => p.category === category);
+        renderProductGrid(filtered);
+      }
+    }
+
+    function filterByCategory(category) {
+      const target = document.getElementById('shop');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+        const filtered = PRODUCTS.filter(p => p.category === category);
+        renderProductGrid(filtered.length ? filtered : PRODUCTS);
+        showToast(`Filtered by: ${category.toUpperCase()}`);
+      }
+    }
+
+    function filterByGoal(goal) {
+      const target = document.getElementById('shop');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+        const filtered = PRODUCTS.filter(p => p.goal === goal);
+        renderProductGrid(filtered.length ? filtered : PRODUCTS);
+        showToast(`Showing Stacks for: ${goal.replace('-', ' ').toUpperCase()}`);
+      }
+    }
+
+    // --- 6. Quick View Modal ---
+    function openQuickView(productId) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+
+      const modal = document.getElementById('quickViewModal');
+      const content = document.getElementById('quickViewContent');
+
+      content.innerHTML = `
+        <div style="display: grid; grid-template-columns: 1fr 1.25fr; gap: 2rem; align-items: start;">
+          <div style="background: var(--surface-2); border-radius: var(--radius-md); padding: 2rem; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative;">
+            <span class="badge-ribbon ${product.badgeClass}" style="position: absolute; top: 12px; left: 12px;">${product.badge}</span>
+            ${renderCanisterSVG(product, 180, 240)}
+            <div style="margin-top: 1rem; font-size: 0.75rem; color: var(--success); font-weight: 700; text-align: center;">
+              🛡️ Batch Verified: ${product.batchNumber}<br>Exp: ${product.expiryDate}
+            </div>
+          </div>
+
+          <div>
+            <span class="product-brand" style="font-size: 0.85rem;">${product.brand}</span>
+            <h2 class="font-display" style="font-size: 1.8rem; margin: 0.25rem 0 0.5rem 0;">${product.name}</h2>
+            
+            <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+              <div class="rating-row" style="font-size: 1rem;">
+                ★★★★★ <span style="color: var(--text); font-weight: 700;">${product.rating}</span>
+                <span style="color: var(--muted); font-weight: normal; font-size: 0.85rem;">(${product.reviewsCount} verified reviews)</span>
+              </div>
+            </div>
+
+            <div style="display: flex; align-items: baseline; gap: 0.75rem; margin-bottom: 1.25rem;">
+              <span class="main-price" style="font-size: 2rem;">$${product.price.toFixed(2)}</span>
+              ${product.comparePrice ? `<span class="compare-price" style="font-size: 1.1rem;">$${product.comparePrice.toFixed(2)}</span>` : ''}
+              <span class="pps-badge" style="font-size: 0.85rem; background: var(--surface-2); padding: 0.2rem 0.5rem; border-radius: 4px;">${product.pricePerServing}</span>
+            </div>
+
+            <p style="font-size: 0.88rem; color: var(--muted); line-height: 1.5; margin-bottom: 1.25rem;">
+              ${product.description}
+            </p>
+
+            <!-- Nutrition Highlights Table -->
+            <div style="background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 0.75rem 1rem; margin-bottom: 1.25rem; font-size: 0.8rem;">
+              <div style="font-weight: 800; color: var(--accent); margin-bottom: 0.35rem; text-transform: uppercase;">
+                SUPPLEMENT FACTS TRANSPARENCY
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; color: var(--text);">
+                ${Object.entries(product.nutrition).map(([key, val]) => `
+                  <div><strong style="color:var(--muted); text-transform: capitalize;">${key.replace(/([A-Z])/g, ' $1')}:</strong> ${val}</div>
+                `).join('')}
+              </div>
+            </div>
+
+            <!-- Flavor & Size in Quick View -->
+            <div style="margin-bottom: 1rem;">
+              <label style="font-size: 0.8rem; font-weight: 700; color: var(--muted); display: block; margin-bottom: 0.35rem;">SELECT FLAVOR:</label>
+              <select class="variant-select" id="qv-flavor-${product.id}" style="width: 100%; padding: 0.5rem;">
+                ${product.flavors.map(f => `<option value="${f}">${f}</option>`).join('')}
+              </select>
+            </div>
+
+            <div style="margin-bottom: 1.5rem;">
+              <label style="font-size: 0.8rem; font-weight: 700; color: var(--muted); display: block; margin-bottom: 0.35rem;">SELECT CONTAINER SIZE:</label>
+              <select class="variant-select" id="qv-size-${product.id}" style="width: 100%; padding: 0.5rem;">
+                ${product.sizes.map(s => `<option value="${s}">${s}</option>`).join('')}
+              </select>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%;" onclick="addFromQuickView('${product.id}')">
+              Add To Cart — $${product.price.toFixed(2)}
+            </button>
+          </div>
+        </div>
+      `;
+
+      modal.classList.add('active');
+    }
+
+    function closeQuickViewModal() {
+      document.getElementById('quickViewModal').classList.remove('active');
+    }
+
+    function addFromQuickView(productId) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+
+      const flavorEl = document.getElementById(`qv-flavor-${productId}`);
+      const sizeEl = document.getElementById(`qv-size-${productId}`);
+
+      const flavor = flavorEl ? flavorEl.value : product.flavors[0];
+      const size = sizeEl ? sizeEl.value : product.sizes[0];
+
+      addToCart(product, flavor, size);
+      closeQuickViewModal();
+      openCartDrawer();
+    }
+
+    // --- 7. Cart Drawer Management ---
+    function handleCardAddToCart(productId) {
+      const product = PRODUCTS.find(p => p.id === productId);
+      if (!product) return;
+
+      const flavorSelect = document.getElementById(`flavor-${productId}`);
+      const sizeSelect = document.getElementById(`size-${productId}`);
+      const flavor = flavorSelect ? flavorSelect.value : product.flavors[0];
+      const size = sizeSelect ? sizeSelect.value : product.sizes[0];
+
+      addToCart(product, flavor, size);
+
+      // Visual button feedback
+      const btn = document.getElementById(`btn-add-${productId}`);
+      if (btn) {
+        btn.classList.add('added');
+        btn.innerHTML = '✓ Added to Cart';
+        setTimeout(() => {
+          btn.classList.remove('added');
+          btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg> Add To Cart`;
+        }, 1200);
+      }
+
+      showToast(`Added: ${product.name}`);
+      openCartDrawer();
+    }
+
+    function addToCart(product, flavor, size, qty = 1) {
+      const cartItemId = `${product.id}__${flavor}__${size}`;
+      const existing = cart.find(item => item.cartItemId === cartItemId);
+
+      if (existing) {
+        existing.quantity += qty;
+      } else {
+        cart.push({
+          cartItemId,
+          productId: product.id,
+          name: product.name,
+          price: product.price,
+          accentColor: product.accentColor,
+          category: product.category,
+          flavor,
+          size,
+          quantity: qty
+        });
+      }
+
+      saveCart();
+      updateCartUI();
+    }
+
+    function addBundleToCart(bundleId) {
+      if (bundleId === 'bundle-1') {
+        addToCart(PRODUCTS[0], 'Double Rich Chocolate', '5 lbs (75 serv)');
+        addToCart(PRODUCTS[1], 'Unflavored Micronized', '500g (100 serv)');
+        addToCart(PRODUCTS[7], 'Matte Stealth Black', '24 oz (700ml)');
+      } else if (bundleId === 'bundle-2') {
+        addToCart(PRODUCTS[0], 'Vanilla Ice Cream', '5 lbs (75 serv)');
+        addToCart(PRODUCTS[2], 'Electric Blue Lemonade', '400g (40 serv)');
+        addToCart(PRODUCTS[3], 'Watermelon Hydration', '390g (30 serv)');
+        addToCart(PRODUCTS[1], 'Unflavored Micronized', '250g (50 serv)');
+      } else if (bundleId === 'bundle-3') {
+        addToCart(PRODUCTS[0], 'Cookies & Cream', '2 lbs (30 serv)');
+        addToCart(PRODUCTS[5], 'Rapid-Release Capsules', '60 Capsules (60 serv)');
+      }
+      showToast('Bundle Stack added to cart with savings applied!');
+      openCartDrawer();
+    }
+
+    function updateCartItemQty(cartItemId, delta) {
+      const item = cart.find(i => i.cartItemId === cartItemId);
+      if (!item) return;
+
+      item.quantity += delta;
+      if (item.quantity <= 0) {
+        cart = cart.filter(i => i.cartItemId !== cartItemId);
+      }
+
+      saveCart();
+      updateCartUI();
+    }
+
+    function saveCart() {
+      try {
+        localStorage.setItem('fitgo_cart', JSON.stringify(cart));
+      } catch (e) {
+        console.warn('LocalStorage error:', e);
+      }
+    }
+
+    function updateCartUI() {
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const discountedSubtotal = subtotal * (1 - currentDiscount);
+
+      // Header and Drawer Count Badges
+      const headerBadge = document.getElementById('cartCountBadge');
+      const drawerCount = document.getElementById('cartDrawerCount');
+      if (headerBadge) headerBadge.textContent = totalCount;
+      if (drawerCount) drawerCount.textContent = totalCount;
+
+      // Shipping progress bar ($75 threshold)
+      const threshold = 75.00;
+      const shippingBarFill = document.getElementById('shippingBarFill');
+      const shippingBarText = document.getElementById('shippingBarText');
+      const shippingPercentText = document.getElementById('shippingPercentText');
+
+      if (shippingBarFill && shippingBarText) {
+        if (subtotal >= threshold) {
+          shippingBarFill.style.width = '100%';
+          shippingBarText.innerHTML = `🎉 You have unlocked <strong>FREE Express Shipping</strong>!`;
+          shippingPercentText.textContent = '100%';
+        } else {
+          const diff = (threshold - subtotal).toFixed(2);
+          const pct = Math.min(100, Math.round((subtotal / threshold) * 100));
+          shippingBarFill.style.width = `${pct}%`;
+          shippingBarText.textContent = `Add $${diff} more for FREE shipping`;
+          shippingPercentText.textContent = `${pct}%`;
+        }
+      }
+
+      // Render Items List
+      const container = document.getElementById('cartItemsContainer');
+      if (!container) return;
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div style="text-align: center; padding: 3rem 1rem; color: var(--muted);">
+            <div style="font-size: 3rem; margin-bottom: 1rem;">🛒</div>
+            <div class="font-display" style="font-size: 1.4rem; color: var(--text);">YOUR CART IS EMPTY</div>
+            <p style="font-size: 0.85rem; margin-top: 0.5rem;">Explore our high-performance supplements and starter stacks.</p>
+            <button class="btn btn-secondary btn-sm" style="margin-top: 1.5rem;" onclick="closeCartDrawer(); window.location.href='#shop';">Browse Supplements</button>
+          </div>
+        `;
+      } else {
+        container.innerHTML = cart.map(item => `
+          <div class="cart-item">
+            <div class="cart-item-thumb">
+              <svg width="40" height="50" viewBox="0 0 140 180" fill="none">
+                <rect x="30" y="8" width="80" height="22" rx="4" fill="#1C1F25" stroke="${item.accentColor || '#FF4D1A'}" stroke-width="3"/>
+                <path d="M22 28H118V156C118 166 110 174 100 174H40C30 174 22 166 22 156V28Z" fill="#14161A"/>
+                <rect x="22" y="52" width="96" height="84" fill="#1E222A"/>
+                <text x="70" y="98" fill="#F4F5F7" font-family="'Anton', sans-serif" font-size="16" text-anchor="middle">FITGO</text>
+              </svg>
+            </div>
+            <div class="cart-item-info">
+              <div class="cart-item-title">${item.name}</div>
+              <div class="cart-item-variant">${item.flavor} • ${item.size}</div>
+              <div class="cart-item-bottom">
+                <div class="qty-stepper">
+                  <button class="qty-btn" onclick="updateCartItemQty('${item.cartItemId}', -1)" aria-label="Decrease quantity">−</button>
+                  <span class="qty-val">${item.quantity}</span>
+                  <button class="qty-btn" onclick="updateCartItemQty('${item.cartItemId}', 1)" aria-label="Increase quantity">+</button>
+                </div>
+                <div class="cart-item-price tabular-nums">$${(item.price * item.quantity).toFixed(2)}</div>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      // Subtotal
+      const subtotalEl = document.getElementById('cartSubtotalAmount');
+      if (subtotalEl) {
+        if (currentDiscount > 0) {
+          subtotalEl.innerHTML = `<span style="text-decoration:line-through; font-size: 1rem; color: var(--muted);">$${subtotal.toFixed(2)}</span> $${discountedSubtotal.toFixed(2)}`;
+        } else {
+          subtotalEl.textContent = `$${subtotal.toFixed(2)}`;
+        }
+      }
+    }
+
+    function openCartDrawer() {
+      document.getElementById('cartOverlay').classList.add('active');
+    }
+
+    function closeCartDrawer() {
+      document.getElementById('cartOverlay').classList.remove('active');
+    }
+
+    function applyCouponCode() {
+      const input = document.getElementById('couponInput');
+      const msg = document.getElementById('couponStatusMsg');
+      if (!input || !msg) return;
+
+      const code = input.value.trim().toUpperCase();
+      if (code === 'FITGO15') {
+        currentDiscount = 0.15;
+        appliedCoupon = 'FITGO15';
+        msg.style.display = 'block';
+        msg.style.color = 'var(--success)';
+        msg.textContent = '✓ 15% VIP Discount Applied!';
+        updateCartUI();
+        showToast('Promo code FITGO15 applied (-15%)');
+      } else {
+        msg.style.display = 'block';
+        msg.style.color = '#FF3B30';
+        msg.textContent = 'Invalid promo code. Try FITGO15';
+      }
+    }
+
+    // --- 8. Wishlist Handling ---
+    function toggleWishlist(productId, event) {
+      if (event) event.stopPropagation();
+
+      const index = wishlist.indexOf(productId);
+      if (index > -1) {
+        wishlist.splice(index, 1);
+        showToast('Removed from wishlist');
+      } else {
+        wishlist.push(productId);
+        showToast('Saved to wishlist ♥');
+      }
+
+      try {
+        localStorage.setItem('fitgo_wishlist', JSON.stringify(wishlist));
+      } catch (e) {}
+
+      updateWishlistUI();
+      // Re-render cards to reflect active heart
+      renderProductGrid(PRODUCTS);
+    }
+
+    function updateWishlistUI() {
+      const badge = document.getElementById('wishlistCountBadge');
+      if (badge) {
+        badge.textContent = wishlist.length;
+        badge.style.display = wishlist.length > 0 ? 'flex' : 'none';
+      }
+    }
+
+    // --- 9. "Find My Stack" Quiz ---
+    let quizSelectedGoal = '';
+    let quizSelectedLevel = '';
+
+    function openStackFinder() {
+      quizSelectedGoal = '';
+      quizSelectedLevel = '';
+      document.getElementById('quizStep1').style.display = 'block';
+      document.getElementById('quizStep2').style.display = 'none';
+      document.getElementById('quizResult').style.display = 'none';
+      document.getElementById('stackFinderModal').classList.add('active');
+    }
+
+    function closeStackFinderModal() {
+      document.getElementById('stackFinderModal').classList.remove('active');
+    }
+
+    function selectQuizGoal(goal) {
+      quizSelectedGoal = goal;
+      document.getElementById('quizStep1').style.display = 'none';
+      document.getElementById('quizStep2').style.display = 'block';
+    }
+
+    function selectQuizLevel(level) {
+      quizSelectedLevel = level;
+      document.getElementById('quizStep2').style.display = 'none';
+      const result = document.getElementById('quizResult');
+      result.style.display = 'block';
+
+      const title = document.getElementById('quizResultTitle');
+      const desc = document.getElementById('quizResultDesc');
+      const items = document.getElementById('quizResultItems');
+      const addBtn = document.getElementById('quizAddStackBtn');
+
+      if (quizSelectedGoal === 'muscle') {
+        title.textContent = 'THE LEAN MASS PROTOCOL';
+        desc.textContent = 'Calibrated for pure myofibrillar protein synthesis, ATP cellular recycling, and clean mass.';
+        items.innerHTML = '• ISO-Gold 100% Whey Isolate (Post-Workout)<br>• Creapure® Micronized Creatine (Daily 5g)<br>• Titan Clean Mass Gainer (Between Meals)';
+        addBtn.onclick = () => { addBundleToCart('bundle-1'); closeStackFinderModal(); };
+      } else if (quizSelectedGoal === 'fatloss') {
+        title.textContent = 'THE LEAN SHRED & DEFINITION PROTOCOL';
+        desc.textContent = 'Formulated to elevate resting metabolic expenditure while completely safeguarding hard-earned muscle mass.';
+        items.innerHTML = '• PyroShred Thermal Accelerator (Fasted Cardio)<br>• Pure ISO Whey Isolate (Low Calorie Intake)<br>• Fermented Intra-EAA Recovery';
+        addBtn.onclick = () => { addBundleToCart('bundle-3'); closeStackFinderModal(); };
+      } else {
+        title.textContent = 'THE ELITE ATHLETE & HYPERTROPHY PROTOCOL';
+        desc.textContent = 'Unrelenting training volume capacity, skin-splitting pumps, and rapid inter-session recovery.';
+        items.innerHTML = '• Savage Pump Pre-Workout V3 (Pre-Workout)<br>• Fermented Intra-EAAs (Intra-Workout)<br>• ISO-Gold Whey Isolate (Post-Workout)';
+        addBtn.onclick = () => { addBundleToCart('bundle-2'); closeStackFinderModal(); };
+      }
+    }
+
+    // --- 10. Live Autocomplete Search ---
+    function openSearchModal() {
+      const modal = document.getElementById('searchModal');
+      modal.classList.add('active');
+      const input = document.getElementById('searchInputField');
+      if (input) {
+        input.value = '';
+        input.focus();
+        handleSearchInput('');
+      }
+    }
+
+    function closeSearchModal() {
+      document.getElementById('searchModal').classList.remove('active');
+    }
+
+    function handleSearchInput(query) {
+      const resultsContainer = document.getElementById('searchResultsList');
+      if (!resultsContainer) return;
+
+      const q = query.trim().toLowerCase();
+      const matches = q === '' 
+        ? PRODUCTS.slice(0, 4) 
+        : PRODUCTS.filter(p => 
+            p.name.toLowerCase().includes(q) || 
+            p.category.toLowerCase().includes(q) || 
+            p.brand.toLowerCase().includes(q)
+          );
+
+      if (matches.length === 0) {
+        resultsContainer.innerHTML = `
+          <div style="padding: 2rem; text-align: center; color: var(--muted);">
+            No supplements matched "${query}". Try searching "protein", "creatine", or "pre-workout".
+          </div>
+        `;
+        return;
+      }
+
+      resultsContainer.innerHTML = matches.map(p => `
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 0.75rem; background: var(--surface-2); border-radius: 8px; border: 1px solid var(--line);">
+          <div style="display: flex; align-items: center; gap: 0.75rem;">
+            ${renderCanisterSVG(p, 42, 50)}
+            <div>
+              <div style="font-weight: 700; font-size: 0.95rem; color: var(--text);">${p.name}</div>
+              <div style="font-size: 0.75rem; color: var(--muted);">${p.brand} • <span style="color:var(--accent); font-weight:700;">$${p.price.toFixed(2)}</span></div>
+            </div>
+          </div>
+          <button class="btn btn-secondary btn-sm" onclick="closeSearchModal(); openQuickView('${p.id}')">View</button>
+        </div>
+      `).join('');
+    }
+
+    // --- 11. Checkout Flow ---
+    function openCheckoutModal() {
+      if (cart.length === 0) {
+        showToast('Your cart is empty');
+        return;
+      }
+      closeCartDrawer();
+
+      const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const discountedSubtotal = subtotal * (1 - currentDiscount);
+      const shipping = subtotal >= 75 ? 0 : 7.99;
+      const grandTotal = discountedSubtotal + shipping;
+
+      document.getElementById('checkoutItemsTotal').textContent = `$${discountedSubtotal.toFixed(2)}`;
+      document.getElementById('checkoutShippingTotal').textContent = shipping === 0 ? 'FREE' : `$${shipping.toFixed(2)}`;
+      document.getElementById('checkoutGrandTotal').textContent = `$${grandTotal.toFixed(2)}`;
+
+      document.getElementById('checkoutFormStep').style.display = 'block';
+      document.getElementById('checkoutSuccessStep').style.display = 'none';
+      document.getElementById('checkoutModal').classList.add('active');
+    }
+
+    function closeCheckoutModal() {
+      document.getElementById('checkoutModal').classList.remove('active');
+    }
+
+    function handlePlaceOrder(event) {
+      event.preventDefault();
+      const orderNum = 'FITGO-' + Math.floor(10000 + Math.random() * 90000);
+      document.getElementById('confirmedOrderNum').textContent = `#${orderNum}`;
+      document.getElementById('checkoutFormStep').style.display = 'none';
+      document.getElementById('checkoutSuccessStep').style.display = 'block';
+
+      // Clear cart
+      cart = [];
+      saveCart();
+      updateCartUI();
+      showToast(`Order ${orderNum} confirmed!`);
+    }
+
+    // --- 12. Reviews Carousel Slider ---
+    let currentReviewIndex = 0;
+    const reviewTrack = document.getElementById('reviewsTrack');
+    const totalReviews = 4;
+
+    function scrollReview(direction) {
+      currentReviewIndex = (currentReviewIndex + direction + totalReviews) % totalReviews;
+      const width = document.querySelector('.review-card') ? document.querySelector('.review-card').offsetWidth + 24 : 360;
+      if (reviewTrack) {
+        reviewTrack.style.transform = `translateX(-${currentReviewIndex * width}px)`;
+      }
+    }
+
+    // Auto slide reviews every 6 seconds
+    setInterval(() => {
+      scrollReview(1);
+    }, 6000);
+
+    // --- 13. FAQ Accordion ---
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const isActive = item.classList.contains('active');
+        document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+        if (!isActive) item.classList.add('active');
+      });
+    });
+
+    // --- 14. Newsletter ---
+    function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('newsletterEmail').value;
+      if (!email) return;
+
+      document.getElementById('newsletterSuccessMsg').style.display = 'block';
+      document.getElementById('newsletterSubmitBtn').textContent = 'Subscribed!';
+      document.getElementById('newsletterSubmitBtn').disabled = true;
+      showToast('Welcome to the VIP Club! Use code FITGO15');
+    }
+
+    // --- 15. Toast System ---
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('toastNotification');
+      const toastMsg = document.getElementById('toastMsg');
+      if (!toast || !toastMsg) return;
+
+      toastMsg.textContent = msg;
+      toast.style.opacity = '1';
+      toast.style.transform = 'translateX(-50%) translateY(0)';
+
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateX(-50%) translateY(100px)';
+      }, 2500);
+    }
+
+    // --- 16. Theme Toggle (Dark / Light) ---
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    let isDark = true;
+
+    try {
+      const savedTheme = localStorage.getItem('fitgo_theme');
+      if (savedTheme === 'light') {
+        isDark = false;
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    } catch(e) {}
+
+    if (themeToggleBtn) {
+      themeToggleBtn.addEventListener('click', () => {
+        isDark = !isDark;
+        if (isDark) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+          localStorage.setItem('fitgo_theme', 'dark');
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+          localStorage.setItem('fitgo_theme', 'light');
+        }
+        showToast(isDark ? 'Dark Mode Activated' : 'Light Mode Activated');
+      });
+    }
+
+    // --- 17. Event Listeners & Bootstrapping ---
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render initial products
+      renderProductGrid(PRODUCTS);
+      updateCartUI();
+      updateWishlistUI();
+
+      // Drawer trigger
+      const cartOpenBtn = document.getElementById('cartOpenBtn');
+      const cartCloseBtn = document.getElementById('cartCloseBtn');
+      const cartOverlay = document.getElementById('cartOverlay');
+
+      if (cartOpenBtn) cartOpenBtn.addEventListener('click', openCartDrawer);
+      if (cartCloseBtn) cartCloseBtn.addEventListener('click', closeCartDrawer);
+      if (cartOverlay) {
+        cartOverlay.addEventListener('click', (e) => {
+          if (e.target === cartOverlay) closeCartDrawer();
+        });
+      }
+
+      // Search triggers
+      const searchOpenBtn = document.getElementById('searchOpenBtn');
+      if (searchOpenBtn) searchOpenBtn.addEventListener('click', openSearchModal);
+
+      // Quiz triggers
+      const findStackHeroBtn = document.getElementById('findStackHeroBtn');
+      if (findStackHeroBtn) findStackHeroBtn.addEventListener('click', openStackFinder);
+
+      // Wishlist header trigger
+      const wishlistHeaderBtn = document.getElementById('wishlistHeaderBtn');
+      if (wishlistHeaderBtn) {
+        wishlistHeaderBtn.addEventListener('click', () => {
+          if (wishlist.length === 0) {
+            showToast('Your wishlist is empty. Tap the heart on products to save them!');
+          } else {
+            const wishProducts = PRODUCTS.filter(p => wishlist.includes(p.id));
+            renderProductGrid(wishProducts);
+            document.getElementById('shop').scrollIntoView({ behavior: 'smooth' });
+            showToast(`Showing ${wishlist.length} saved wishlist items`);
+          }
+        });
+      }
+
+      // Reviews carousel buttons
+      const prevBtn = document.getElementById('reviewPrevBtn');
+      const nextBtn = document.getElementById('reviewNextBtn');
+      if (prevBtn) prevBtn.addEventListener('click', () => scrollReview(-1));
+      if (nextBtn) nextBtn.addEventListener('click', () => scrollReview(1));
+
+      // Close modals on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeCartDrawer();
+          closeQuickViewModal();
+          closeSearchModal();
+          closeCheckoutModal();
+          closeStackFinderModal();
+        }
+      });
+    });
+
+  </script>
+</body>
+</html>
